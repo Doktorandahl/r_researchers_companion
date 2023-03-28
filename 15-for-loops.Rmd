@@ -1,0 +1,143 @@
+# (PART) Advanced topics {-}
+# Writing for-loops and functions
+
+In this chapter we will look at how to write for-loops and how to write your own functions. This is useful for a lot of different situations when you want to repeat the same procedure over and over again, for instance if we are doing simulations which we wish to repeat in order to obtain a distribution to analyze.
+
+## For-loops
+
+A for loop is a set of lines of code which we wish to repeat for a *vector* of values and where we want to use the individual elements of the vector inside the set of codes. For instance, if we want to test how the central limit theorem makes the mean across a sample be approximately normally distributed we can use a for-loop to do the necessary simulations.
+
+A for-loop is initiated similar to a function (although it is not a function even though it is followed by parentheses) by writing `for()`. Inside the parenthesis we will define a name of the iteration variable and we will define which vector we should loop over. The name can be anything as long as it fits with the R conventions for naming objects, but you should refrain from using the name of objects you already have in your environment. The most common convention is to use a generic name for the vector in the for-loop, such as `i` or `j`.Unlike arguments in a function we do not use `=` to define that the iteration variable should take the values of the vector, instead we separate the name of the iteration variable and the vector with `in`. Often times we want to loop over a range of values. To create a range, we can use the `:` operator which creates a sequence of values from the value to the left of `:` to the value on the right of the `:`. Thus, if we want to loop over all values between 1 and 100, we write `for(i in 1:100)`. This means that inside the loop, the object `i` will first take the value 1, then when we have reached the end of the loop we will start from the top and `i` will then take the value 2, and so on until we reach the end of the vector (when `i` takes the value 100).
+
+Once we have the name of the iteration variable (`i`) and the vector we should loop over (`1:100`) we can turn to defining the body of the loop. The body of the loop is the code we should loop over, and we define this using curly brackets, `{}`. We put the opening curly bracket directly after the end parenthesis in the `for()` statement, and the closing curly bracket after the final line of code of the loop.
+
+Let us try this out with a simple example. The `rnorm()` function generates random numbers from the normal distribution. The second argument of the function specifies the mean of the normal distribution. We can then generate values from the normal distribution with different means using a for-loop like this:
+
+```
+for(i in 1:10){
+a_random_draw <- rnorm(n=1,mean=i,sd=1)
+a_random_draw
+}
+```
+This for loop will generate 10 random numbers from the normal distribution where the mean in each random draw is `i`, i.e. the iteration variable. The other arguments of the `rnorm()` function specify that we want `n=1` numbers and a standard deviation of 1 for the normal distribution. The second line in the for-loop simply prints this number to the console.
+
+This is of course not a very useful for-loop in practice, but it illustrates a minium working example of the for-loop.
+
+### Storing the results of a for-loop
+To really unlock the potential of for-loops we need to learn how to best store the results of a for-loop in an appropriate way. The simplest way of doing this is through *pre-allocation*. When we do pre-allocation we create an empty vector or matrix *before* the for-loop in which we will store the the results of the for loop.
+
+For instance, if we want to return to the question of the central limit theorem and we want to investigate how the mean of dice throws go towards the normal distribution as we increase the number of dice. We can simulate dice throws using the following function `sample(1:6,n_dice,replace=TRUE)` where n_dice is the number of dice we want to throw. The sample function simply lets us sample from a vector (in this case `1:6`), n_dice number of times, with replacement (`replace=TRUE`), i.e. the exact same thing as a dice throw. Let us now say we want to investigate the mean of 1000 trials with a set number of dice. We then *pre-allocate* an empty result vector with length 1000, and then we fill in the values in the for-loop. We can create an empty vector using the `rep()` function with `NA` as the first argument and the length of the vector as the second argument. We can thus run our experiment like this:
+
+```
+
+results <- rep(NA,1000) # Pre-allocating a result vector
+n_dice <- 3 # set the number of dice to throw
+
+for(i in 1:1000){
+dice <- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice <- mean(dice) # calculate the mean of our dice
+results[i] <- mean_of_dice # we input the value we are interested at the i:th position in the results vector
+}
+```
+
+We can now investigate how the distribution of these means look by looking at the results vector, for instance by plotting this distribution. We will look more at plotting in later chapters, but for now we can use the simplified plotting interface from `qplot()` in the `ggplot` package and investigate how the results vector looks
+
+```
+qplot(results,geom='bar')
+```
+
+As you can see, the distribution starts looking somewhat normal already with three dice throws.
+
+### Nesting for-loops
+
+We can also nest for-loops within one-another. In this case we usually call the loops the outer and the inner loop. You construct nested loops in the same way as before, but you have one of the loops inside the body of the other. The only requirement here is that the iteration variable needs a unique name in each loop.
+
+For instance, let us say that we are interested in knowing how the distribution of the means change when we increase the number of dice throws, we can investigate this using a nested for loop. When we pre-allocate the results in nested loops we usually want to store the results in a matrix where the rows correspond to the inner loop position and the colums to the outer loop positions. Using the same setup as before we can then do:
+
+
+```
+
+results <- matrix(NA,1000,10) # Pre-allocating a result matrix
+
+# We want to test how the distribution of means change from 1 to 10 dice thrown
+for(j in 1:10){
+n_dice <- j # set the number of dice to throw
+
+for(i in 1:1000){
+dice <- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice <- mean(dice) # calculate the mean of our dice
+results[i,j] <- mean_of_dice # we input the value we are interested at the i:th row and j:th column in the results matrix
+} # End of inner loop
+
+} # End of outer loop
+```
+
+We can now investigate the individual distributions using qplot on the individual columns, for instance:
+
+```
+qplot(results[,1], geom='bar') # The distribution of means with one dice
+
+qplot(results[,5], geom='bar') # The distribution of means with five dice
+
+qplot(results[,7], geom='bar') # The distribution of means with seven dice
+
+qplot(results[,10], geom='bar') # The distribution of means with ten dice
+```
+
+We could also investigate the standard errors of the means by using the `sd()` function on the individual columns (remember, standard errors of a statistic is the equivalent of the standard deviation of the statistic in repeated sampling). The true standard deviation of dice throws is approximately 1.708, and the standard error when we calculate means across many dice throws are $sd(x)/sqrt(x)$, i.e. we should expect the standard error in coulmn 9 to be approximately $1.708/sqrt(9)\approx 0.57$. When we investigate this by running `sd(results[,9])` you will get a value that is somewhere in the vicinity of 0.57. If you re-run the for-loops you will get a different result, but on average you will end up at 0.57.
+
+## Writing functions
+
+Now we move onto writing our own functions. Writing a function in R is really easy. All we need is a unique name for the function with the same conventions as naming objects (functions in R are actually also objects). We then use the assignment operator and the function interface `function()`. Inside the parentheses of function we put the arguments we will use in the function, and after the end parenthesis we put curly brackets which contain the body of the function. The last line in the body of the function is what the function will return, unless we use an explicit `return()` statement in the function.
+
+Let us try by creating one of the simplest functions we can: a function to add two values together. We will name this function `adding_a_and_b` and we create it like this:
+
+```
+adding_a_and_b <- function(a, b){
+a+b
+}
+```
+
+What this function does is that it takes two arguments, `a` and `b`, and adds them together. When you run this piece of code, you should see that a new object appears in the environment under the heading *functions* and that it is called `adding_a_and_b`. You can call this function like any other function, for instance
+
+```
+adding_a_and_b(1,6)
+```
+
+which should return `7`.
+
+How is this useful to us? Well, functions and for-loops are actually quite similar and often times we can replace for-loops with functions, or bake for-loops into functions to make for cleaner coding. Using our example from above, we could for instance make a function called `means_of_dice` which can take two arguments, `number_of_means` and `number_of_dice`
+
+```
+mean_of_dice <- function(means_of_dice,number_of_means=1000){
+results <- rep(NA,number_of_means) # Pre-allocating a result vector
+
+for(i in 1:number_of_means){
+dice <- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice <- mean(dice) # calculate the mean of our dice
+results[i] <- mean_of_dice # we input the value we are interested at the i:th position in the results vector
+}
+return(results)
+}
+
+```
+With this function we can now specify both the number of dice and the number of trials we run. As you can see in the code above I also specified a default argument to the function, that the `number_of_means` argument takes the value 1000 unless something else is specified. The function returns the results vector from earlier. We can now easily investigate the distribution of means from dice by simply running our function `mean_of_dice`, for instance:
+
+```
+mean_of_100_dice <- mean_of_dice(100) # if we do not specify the second argument it defaults to 1000
+
+mean_of_200_dice <- mean_of_dice(200,10000) # We can also increase or decrease the number of trials with the second argument
+
+qplot(mean_of_100_dice,geom='bar')
+sd(mean_of_100_dice)
+
+qplot(mean_of_200_dice,geom='bar')
+sd(mean_of_200_dice)
+```
+
+As you progress through your journey of learning R you will increasingly find uses for both for-loops and user defined functions as they can make your life a lot easier when trying to reproduce both your own work and others'.
+
+
+
+
+

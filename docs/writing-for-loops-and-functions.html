@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 15 Writing for-loops and functions | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 15 Writing for-loops and functions | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 15 Writing for-loops and functions | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="presenting-results-in-tables.html"/>
+<link rel="next" href="assignment-for-workshop-1.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="writing-for-loops-and-functions" class="section level1 hasAnchor" number="15">
+<h1><span class="header-section-number">Chapter 15</span> Writing for-loops and functions<a href="writing-for-loops-and-functions.html#writing-for-loops-and-functions" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter we will look at how to write for-loops and how to write your own functions. This is useful for a lot of different situations when you want to repeat the same procedure over and over again, for instance if we are doing simulations which we wish to repeat in order to obtain a distribution to analyze.</p>
+<div id="for-loops" class="section level2 hasAnchor" number="15.1">
+<h2><span class="header-section-number">15.1</span> For-loops<a href="writing-for-loops-and-functions.html#for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A for loop is a set of lines of code which we wish to repeat for a <em>vector</em> of values and where we want to use the individual elements of the vector inside the set of codes. For instance, if we want to test how the central limit theorem makes the mean across a sample be approximately normally distributed we can use a for-loop to do the necessary simulations.</p>
+<p>A for-loop is initiated similar to a function (although it is not a function even though it is followed by parentheses) by writing <code>for()</code>. Inside the parenthesis we will define a name of the iteration variable and we will define which vector we should loop over. The name can be anything as long as it fits with the R conventions for naming objects, but you should refrain from using the name of objects you already have in your environment. The most common convention is to use a generic name for the vector in the for-loop, such as <code>i</code> or <code>j</code>.Unlike arguments in a function we do not use <code>=</code> to define that the iteration variable should take the values of the vector, instead we separate the name of the iteration variable and the vector with <code>in</code>. Often times we want to loop over a range of values. To create a range, we can use the <code>:</code> operator which creates a sequence of values from the value to the left of <code>:</code> to the value on the right of the <code>:</code>. Thus, if we want to loop over all values between 1 and 100, we write <code>for(i in 1:100)</code>. This means that inside the loop, the object <code>i</code> will first take the value 1, then when we have reached the end of the loop we will start from the top and <code>i</code> will then take the value 2, and so on until we reach the end of the vector (when <code>i</code> takes the value 100).</p>
+<p>Once we have the name of the iteration variable (<code>i</code>) and the vector we should loop over (<code>1:100</code>) we can turn to defining the body of the loop. The body of the loop is the code we should loop over, and we define this using curly brackets, <code>{}</code>. We put the opening curly bracket directly after the end parenthesis in the <code>for()</code> statement, and the closing curly bracket after the final line of code of the loop.</p>
+<p>Let us try this out with a simple example. The <code>rnorm()</code> function generates random numbers from the normal distribution. The second argument of the function specifies the mean of the normal distribution. We can then generate values from the normal distribution with different means using a for-loop like this:</p>
+<pre><code>for(i in 1:10){
+a_random_draw &lt;- rnorm(n=1,mean=i,sd=1)
+a_random_draw
+}</code></pre>
+<p>This for loop will generate 10 random numbers from the normal distribution where the mean in each random draw is <code>i</code>, i.e. the iteration variable. The other arguments of the <code>rnorm()</code> function specify that we want <code>n=1</code> numbers and a standard deviation of 1 for the normal distribution. The second line in the for-loop simply prints this number to the console.</p>
+<p>This is of course not a very useful for-loop in practice, but it illustrates a minium working example of the for-loop.</p>
+<div id="storing-the-results-of-a-for-loop" class="section level3 hasAnchor" number="15.1.1">
+<h3><span class="header-section-number">15.1.1</span> Storing the results of a for-loop<a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To really unlock the potential of for-loops we need to learn how to best store the results of a for-loop in an appropriate way. The simplest way of doing this is through <em>pre-allocation</em>. When we do pre-allocation we create an empty vector or matrix <em>before</em> the for-loop in which we will store the the results of the for loop.</p>
+<p>For instance, if we want to return to the question of the central limit theorem and we want to investigate how the mean of dice throws go towards the normal distribution as we increase the number of dice. We can simulate dice throws using the following function <code>sample(1:6,n_dice,replace=TRUE)</code> where n_dice is the number of dice we want to throw. The sample function simply lets us sample from a vector (in this case <code>1:6</code>), n_dice number of times, with replacement (<code>replace=TRUE</code>), i.e. the exact same thing as a dice throw. Let us now say we want to investigate the mean of 1000 trials with a set number of dice. We then <em>pre-allocate</em> an empty result vector with length 1000, and then we fill in the values in the for-loop. We can create an empty vector using the <code>rep()</code> function with <code>NA</code> as the first argument and the length of the vector as the second argument. We can thus run our experiment like this:</p>
+<pre><code>
+results &lt;- rep(NA,1000) # Pre-allocating a result vector
+n_dice &lt;- 3 # set the number of dice to throw
+
+for(i in 1:1000){
+dice &lt;- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice &lt;- mean(dice) # calculate the mean of our dice
+results[i] &lt;- mean_of_dice # we input the value we are interested at the i:th position in the results vector
+}</code></pre>
+<p>We can now investigate how the distribution of these means look by looking at the results vector, for instance by plotting this distribution. We will look more at plotting in later chapters, but for now we can use the simplified plotting interface from <code>qplot()</code> in the <code>ggplot</code> package and investigate how the results vector looks</p>
+<pre><code>qplot(results,geom=&#39;bar&#39;)</code></pre>
+<p>As you can see, the distribution starts looking somewhat normal already with three dice throws.</p>
+</div>
+<div id="nesting-for-loops" class="section level3 hasAnchor" number="15.1.2">
+<h3><span class="header-section-number">15.1.2</span> Nesting for-loops<a href="writing-for-loops-and-functions.html#nesting-for-loops" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can also nest for-loops within one-another. In this case we usually call the loops the outer and the inner loop. You construct nested loops in the same way as before, but you have one of the loops inside the body of the other. The only requirement here is that the iteration variable needs a unique name in each loop.</p>
+<p>For instance, let us say that we are interested in knowing how the distribution of the means change when we increase the number of dice throws, we can investigate this using a nested for loop. When we pre-allocate the results in nested loops we usually want to store the results in a matrix where the rows correspond to the inner loop position and the colums to the outer loop positions. Using the same setup as before we can then do:</p>
+<pre><code>
+results &lt;- matrix(NA,1000,10) # Pre-allocating a result matrix
+
+# We want to test how the distribution of means change from 1 to 10 dice thrown
+for(j in 1:10){
+n_dice &lt;- j # set the number of dice to throw
+
+for(i in 1:1000){
+dice &lt;- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice &lt;- mean(dice) # calculate the mean of our dice
+results[i,j] &lt;- mean_of_dice # we input the value we are interested at the i:th row and j:th column in the results matrix
+} # End of inner loop
+
+} # End of outer loop</code></pre>
+<p>We can now investigate the individual distributions using qplot on the individual columns, for instance:</p>
+<pre><code>qplot(results[,1], geom=&#39;bar&#39;) # The distribution of means with one dice
+
+qplot(results[,5], geom=&#39;bar&#39;) # The distribution of means with five dice
+
+qplot(results[,7], geom=&#39;bar&#39;) # The distribution of means with seven dice
+
+qplot(results[,10], geom=&#39;bar&#39;) # The distribution of means with ten dice</code></pre>
+<p>We could also investigate the standard errors of the means by using the <code>sd()</code> function on the individual columns (remember, standard errors of a statistic is the equivalent of the standard deviation of the statistic in repeated sampling). The true standard deviation of dice throws is approximately 1.708, and the standard error when we calculate means across many dice throws are <span class="math inline">\(sd(x)/sqrt(x)\)</span>, i.e. we should expect the standard error in coulmn 9 to be approximately <span class="math inline">\(1.708/sqrt(9)\approx 0.57\)</span>. When we investigate this by running <code>sd(results[,9])</code> you will get a value that is somewhere in the vicinity of 0.57. If you re-run the for-loops you will get a different result, but on average you will end up at 0.57.</p>
+</div>
+</div>
+<div id="writing-functions" class="section level2 hasAnchor" number="15.2">
+<h2><span class="header-section-number">15.2</span> Writing functions<a href="writing-for-loops-and-functions.html#writing-functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now we move onto writing our own functions. Writing a function in R is really easy. All we need is a unique name for the function with the same conventions as naming objects (functions in R are actually also objects). We then use the assignment operator and the function interface <code>function()</code>. Inside the parentheses of function we put the arguments we will use in the function, and after the end parenthesis we put curly brackets which contain the body of the function. The last line in the body of the function is what the function will return, unless we use an explicit <code>return()</code> statement in the function.</p>
+<p>Let us try by creating one of the simplest functions we can: a function to add two values together. We will name this function <code>adding_a_and_b</code> and we create it like this:</p>
+<pre><code>adding_a_and_b &lt;- function(a, b){
+a+b
+}</code></pre>
+<p>What this function does is that it takes two arguments, <code>a</code> and <code>b</code>, and adds them together. When you run this piece of code, you should see that a new object appears in the environment under the heading <em>functions</em> and that it is called <code>adding_a_and_b</code>. You can call this function like any other function, for instance</p>
+<pre><code>adding_a_and_b(1,6)</code></pre>
+<p>which should return <code>7</code>.</p>
+<p>How is this useful to us? Well, functions and for-loops are actually quite similar and often times we can replace for-loops with functions, or bake for-loops into functions to make for cleaner coding. Using our example from above, we could for instance make a function called <code>means_of_dice</code> which can take two arguments, <code>number_of_means</code> and <code>number_of_dice</code></p>
+<pre><code>mean_of_dice &lt;- function(means_of_dice,number_of_means=1000){
+results &lt;- rep(NA,number_of_means) # Pre-allocating a result vector
+
+for(i in 1:number_of_means){
+dice &lt;- sample(1:6,n_dice,replace=T) # throw our dice
+mean_of_dice &lt;- mean(dice) # calculate the mean of our dice
+results[i] &lt;- mean_of_dice # we input the value we are interested at the i:th position in the results vector
+}
+return(results)
+}
+</code></pre>
+<p>With this function we can now specify both the number of dice and the number of trials we run. As you can see in the code above I also specified a default argument to the function, that the <code>number_of_means</code> argument takes the value 1000 unless something else is specified. The function returns the results vector from earlier. We can now easily investigate the distribution of means from dice by simply running our function <code>mean_of_dice</code>, for instance:</p>
+<pre><code>mean_of_100_dice &lt;- mean_of_dice(100) # if we do not specify the second argument it defaults to 1000
+
+mean_of_200_dice &lt;- mean_of_dice(200,10000) # We can also increase or decrease the number of trials with the second argument
+
+qplot(mean_of_100_dice,geom=&#39;bar&#39;)
+sd(mean_of_100_dice)
+
+qplot(mean_of_200_dice,geom=&#39;bar&#39;)
+sd(mean_of_200_dice)</code></pre>
+<p>As you progress through your journey of learning R you will increasingly find uses for both for-loops and user defined functions as they can make your life a lot easier when trying to reproduce both your own work and others’.</p>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="presenting-results-in-tables.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="assignment-for-workshop-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/15-for-loops.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,111 @@
+# Summarazing data, grouping, aggregation, and group manipulation
+
+In this chapter we are going to look at how to summarize and aggregate data in R using the tidyverse. As before in the chapter on data manipulation we will use pipes and verb-functions to do this. 
+
+## Summarizing data
+
+Summarizing data is useful when we want to know summary statistics (such as means, standard deviations, or other things) from different variables in a data set. Important to know is that  summary statistics are only allowed to take one value per variable so we cannot do for instance whole confidence intervals (we can, however, include lower or higher bounds since these are single values).
+
+We summarize the data using the verb-function summarize, which takes the data set as the first argument, and then you define the summarized values similar to how you would in `mutate()` using an equal sign with the name of the summarized variable on the left hand side and the function creating the summary statistic on the right hand side. For instance, if we want to know the mean, median, and standard deviation of the `best` fatality estimate of the `ucdp` data we used in the previous chapters, we can calculate this with the summarize function:
+
+```
+ucdp %>% summarize(mean_best_fat = mean(best),
+                   median_best_fat = median(best),
+                   sd_best_fat = sd(best))
+```
+
+When you run this, you will see that the summarize function returns this as a tibble with each of the summary statistics as a variable. As always you can store the output as an object if you wish to save it for further use. The fact that the output is a tibble will be especially important when we introduce grouping before summarizing and we will see how this relates to aggregation to a different level of analysis. Also worth noting is that we can include however many summary statistics as we want in the summarize function, allowing us to define exactly what we want from these.
+
+### Summarizing across multiple variables
+That it is possible to summarize however many variables we want is a useful feature, however in large data sets we may want to have the same summary statistic for a large number of variables (eg. mean or sum) in which case it will get tiresome to add each individual variable to the summary. We can in this case summarize across a range of variables. For instance, let us say that we want to calculate the sum of all of the `deaths_` variables. We can do this by using the `across()` function inside the `summarize()` function to apply the same function to multiple variables. In the `across()` function we select variables in the same way we would with select, i.e. with variable names, column numbers, or using select helpers. To use `across()`  properly, we also need to use a `lambda` style formula as the function. We create a lambda by putting a tilde, `~` before the function we use, and then we let `.x` represent the argument the variable will be used for, i.e. if we want the means for our variables, our lambda would be `~mean(.x)`. An upside with using lambdas is that it is easy to add additional arguments such as `na.rm` to the function which you can do by simply adding the argument as you usually would, i.e. `~mean(.x, na.rm=TRUE)`. Let's try this out by calculating the sum of all variables beinning with `deaths_`
+
+```
+ucdp %>% summarize(across(starts_with("deaths"), ~sum(.x)))
+```
+
+This will create a new tibble with these sums as variables. When using across, the name of the summary variables are by default the same as the variable in the original data. We can also create multiple summary statistics from the same variables by providing a list of lambdas as the second argument in the across function. We create a list using the `list()` function, and inside the list we name each function/lambda that we want to calculate. For instance, if we also want to calculate the standard deviation above.
+
+```
+ucdp %>%  summarize(across(starts_with("deaths"),list(sum = ~sum(.x),
+                                                         sd = ~sd(.x))))
+```
+
+Note that the names inside the list are arbritrary, but will define what the names of the columns in our summarized tibble are.
+
+## Grouping data
+
+Often times when working with conflict data we will have data which is grouped in one way or another, and often times when we present summaries of statistics we will want to know how these statistics vary across different types of groups. To do this we use the `group_by()` function before we summarize our data. The `group_by()` function takes the data set as the first argument, and then the variable or variables you want to group the data by. R will then create groups based on all *unique* combinations of values for the grouping variables in the data. For instance let us say that we want to compare the mean best estimate of fatalities across UCDP:s three main types of violence, state-based violence, non-state violence, and one-sided violence. This is present in the `type_of_violence` variable in our data. We then simply group by this variable before we do our summary, like this:
+
+```
+ucdp %>% group_by(type_of_violence) %>% summarize(mean_best_estimate = mean(best),
+                                                  sd_best_estimate = sd(best))
+```
+As you can see, the resulting tibble now has three rows, one for each type of violence (note, the coding of the types are 1,2, and 3, where 1 corresponds to state based violence, 2 to non-state violence, and 3 to one-sided violence).
+
+If we want to group by multiple variables, for instance type of violence and region, we can do so by simply specifying both variables in the `group_by()` function.
+
+```
+ucdp %>% group_by(type_of_violence,region) %>% summarize(mean_best_estimate  = mean(best),
+                                                  sd_best_estimate = sd(best))
+```
+
+As you can see in the output, we now have 15 rows in our summarized tibble, corresponding to one row per unique combination of type of violence and region.
+
+## Aggregation
+We can use what we have learned above about grouping and summarizing data in order to aggregate data. When we aggregate data we move from one unit of analysis to another unit of analysis which is more concentrated (*aggregated*). For instance, the UCDP-GED data which we use in this chapter are coded at the *event* level, and the unit of analysis (corresponding to each individual row) is a single event.
+
+This level of analysis is very finely granular, but sometimes we may want to use something more coarse, such as a *country-year* data set where each observation corresponds to the data from one country in one specific year. When we translate a data from the event level to a country-year level, what we actually do is that we summarize the data across groups of country-years. Thus, to move from a event data to a country-year data set in this case we would simply group_by country and year and then add the variables we would want aggregated in the `summarize()` function. When aggregating, it is, however, worth keeping in mind that not all variables are possible to aggregate. It may also be necessary to mutate before aggregating in order to get all the variables you want. These problems in aggregation are, however, beyond the scope of this chapter. Now let us say that we want to aggregate our UCDP-GED data to a country year level, and we want to know the number of fatalities (low, high, and best), as well as the number of events and number of civilian deaths per country. To get the number of events, we can use the `n()` function which simply calculates the number of events in each row. If we want to keep a variable which has only one value for the entire group, such as an id number or similar, we can either include it in the grouping function, or we could create a summary value by taking the value of the first observation in the group using hard brackets, `[]`. 
+
+In this case we also want to save our resulting data set as a new object, since we will use it for further analysis below.  This is where it is so important that what is returned from `summarize()` is a tibble: we can use this directly as a new data set. One issue when we aggregate like this is that the output tibble will be grouped by default. To override this, we can end our function by piping the output into the `ungroup()` function, which is always good practice to do.
+
+```
+ucdp_cy <- ucdp %>% group_by(country,year) %>% summarize(country_id = country_id[1],
+                                                         number_of_events = n(),
+                                                         civilian_deaths = sum(deaths_civilians),
+                                                         best = sum(best),
+                                                         low = sum(low),
+                                                         high = sum(high)) %>%
+                                                         ungroup()
+
+```
+
+We have now transformed our UCDP-GED data set from an event level data set to a country-year level data set. 
+
+## Group manipulation
+
+Finally for this chapter, we will look at group manipulation of data. Group manipulation is an operation we do when we need to mutate data inside our groups. The most evident use for this is when we are creating lagged variables in a panel data set, i.e. when we have time ordered observations for different groups in our data. For instance, in order to analyze intensity of violence in terms of the best estimate of fatalities, we may want to control for the number of fatalities in the previous year. We do this with the `lag()` function, which takes as input the variable or vector which we want to lag. However, if we were to just lag the best estimate in our data set, when ordered by country and year, then R would not understand that when lagging the variable it should take into account whether or not the previous observation is from the same country or not. We can solve this problem by grouping the data before we mutate, then the mutation will happen independently in each group (country) and we can thus avoid this problem. As before when we do this, it is good practice to ungroup the data at the end by piping the output into the `ungroup()` function.
+
+```
+ucdp_cy <- ucdp %>% group_by(country) %>% 
+                    mutate(lagged_best_fatalities = lag(best)) %>%
+                    ungroup()
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

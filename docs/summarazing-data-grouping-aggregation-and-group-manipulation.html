@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 10 Summarazing data, grouping, aggregation, and group manipulation | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 10 Summarazing data, grouping, aggregation, and group manipulation | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 10 Summarazing data, grouping, aggregation, and group manipulation | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="data-manipulation.html"/>
+<link rel="next" href="merging-data.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="summarazing-data-grouping-aggregation-and-group-manipulation" class="section level1 hasAnchor" number="10">
+<h1><span class="header-section-number">Chapter 10</span> Summarazing data, grouping, aggregation, and group manipulation<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarazing-data-grouping-aggregation-and-group-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter we are going to look at how to summarize and aggregate data in R using the tidyverse. As before in the chapter on data manipulation we will use pipes and verb-functions to do this.</p>
+<div id="summarizing-data" class="section level2 hasAnchor" number="10.1">
+<h2><span class="header-section-number">10.1</span> Summarizing data<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Summarizing data is useful when we want to know summary statistics (such as means, standard deviations, or other things) from different variables in a data set. Important to know is that summary statistics are only allowed to take one value per variable so we cannot do for instance whole confidence intervals (we can, however, include lower or higher bounds since these are single values).</p>
+<p>We summarize the data using the verb-function summarize, which takes the data set as the first argument, and then you define the summarized values similar to how you would in <code>mutate()</code> using an equal sign with the name of the summarized variable on the left hand side and the function creating the summary statistic on the right hand side. For instance, if we want to know the mean, median, and standard deviation of the <code>best</code> fatality estimate of the <code>ucdp</code> data we used in the previous chapters, we can calculate this with the summarize function:</p>
+<pre><code>ucdp %&gt;% summarize(mean_best_fat = mean(best),
+                   median_best_fat = median(best),
+                   sd_best_fat = sd(best))</code></pre>
+<p>When you run this, you will see that the summarize function returns this as a tibble with each of the summary statistics as a variable. As always you can store the output as an object if you wish to save it for further use. The fact that the output is a tibble will be especially important when we introduce grouping before summarizing and we will see how this relates to aggregation to a different level of analysis. Also worth noting is that we can include however many summary statistics as we want in the summarize function, allowing us to define exactly what we want from these.</p>
+<div id="summarizing-across-multiple-variables" class="section level3 hasAnchor" number="10.1.1">
+<h3><span class="header-section-number">10.1.1</span> Summarizing across multiple variables<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>That it is possible to summarize however many variables we want is a useful feature, however in large data sets we may want to have the same summary statistic for a large number of variables (eg. mean or sum) in which case it will get tiresome to add each individual variable to the summary. We can in this case summarize across a range of variables. For instance, let us say that we want to calculate the sum of all of the <code>deaths_</code> variables. We can do this by using the <code>across()</code> function inside the <code>summarize()</code> function to apply the same function to multiple variables. In the <code>across()</code> function we select variables in the same way we would with select, i.e. with variable names, column numbers, or using select helpers. To use <code>across()</code> properly, we also need to use a <code>lambda</code> style formula as the function. We create a lambda by putting a tilde, <code>~</code> before the function we use, and then we let <code>.x</code> represent the argument the variable will be used for, i.e. if we want the means for our variables, our lambda would be <code>~mean(.x)</code>. An upside with using lambdas is that it is easy to add additional arguments such as <code>na.rm</code> to the function which you can do by simply adding the argument as you usually would, i.e. <code>~mean(.x, na.rm=TRUE)</code>. Let’s try this out by calculating the sum of all variables beinning with <code>deaths_</code></p>
+<pre><code>ucdp %&gt;% summarize(across(starts_with(&quot;deaths&quot;), ~sum(.x)))</code></pre>
+<p>This will create a new tibble with these sums as variables. When using across, the name of the summary variables are by default the same as the variable in the original data. We can also create multiple summary statistics from the same variables by providing a list of lambdas as the second argument in the across function. We create a list using the <code>list()</code> function, and inside the list we name each function/lambda that we want to calculate. For instance, if we also want to calculate the standard deviation above.</p>
+<pre><code>ucdp %&gt;%  summarize(across(starts_with(&quot;deaths&quot;),list(sum = ~sum(.x),
+                                                         sd = ~sd(.x))))</code></pre>
+<p>Note that the names inside the list are arbritrary, but will define what the names of the columns in our summarized tibble are.</p>
+</div>
+</div>
+<div id="grouping-data" class="section level2 hasAnchor" number="10.2">
+<h2><span class="header-section-number">10.2</span> Grouping data<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Often times when working with conflict data we will have data which is grouped in one way or another, and often times when we present summaries of statistics we will want to know how these statistics vary across different types of groups. To do this we use the <code>group_by()</code> function before we summarize our data. The <code>group_by()</code> function takes the data set as the first argument, and then the variable or variables you want to group the data by. R will then create groups based on all <em>unique</em> combinations of values for the grouping variables in the data. For instance let us say that we want to compare the mean best estimate of fatalities across UCDP:s three main types of violence, state-based violence, non-state violence, and one-sided violence. This is present in the <code>type_of_violence</code> variable in our data. We then simply group by this variable before we do our summary, like this:</p>
+<pre><code>ucdp %&gt;% group_by(type_of_violence) %&gt;% summarize(mean_best_estimate = mean(best),
+                                                  sd_best_estimate = sd(best))</code></pre>
+<p>As you can see, the resulting tibble now has three rows, one for each type of violence (note, the coding of the types are 1,2, and 3, where 1 corresponds to state based violence, 2 to non-state violence, and 3 to one-sided violence).</p>
+<p>If we want to group by multiple variables, for instance type of violence and region, we can do so by simply specifying both variables in the <code>group_by()</code> function.</p>
+<pre><code>ucdp %&gt;% group_by(type_of_violence,region) %&gt;% summarize(mean_best_estimate  = mean(best),
+                                                  sd_best_estimate = sd(best))</code></pre>
+<p>As you can see in the output, we now have 15 rows in our summarized tibble, corresponding to one row per unique combination of type of violence and region.</p>
+</div>
+<div id="aggregation" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Aggregation<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We can use what we have learned above about grouping and summarizing data in order to aggregate data. When we aggregate data we move from one unit of analysis to another unit of analysis which is more concentrated (<em>aggregated</em>). For instance, the UCDP-GED data which we use in this chapter are coded at the <em>event</em> level, and the unit of analysis (corresponding to each individual row) is a single event.</p>
+<p>This level of analysis is very finely granular, but sometimes we may want to use something more coarse, such as a <em>country-year</em> data set where each observation corresponds to the data from one country in one specific year. When we translate a data from the event level to a country-year level, what we actually do is that we summarize the data across groups of country-years. Thus, to move from a event data to a country-year data set in this case we would simply group_by country and year and then add the variables we would want aggregated in the <code>summarize()</code> function. When aggregating, it is, however, worth keeping in mind that not all variables are possible to aggregate. It may also be necessary to mutate before aggregating in order to get all the variables you want. These problems in aggregation are, however, beyond the scope of this chapter. Now let us say that we want to aggregate our UCDP-GED data to a country year level, and we want to know the number of fatalities (low, high, and best), as well as the number of events and number of civilian deaths per country. To get the number of events, we can use the <code>n()</code> function which simply calculates the number of events in each row. If we want to keep a variable which has only one value for the entire group, such as an id number or similar, we can either include it in the grouping function, or we could create a summary value by taking the value of the first observation in the group using hard brackets, <code>[]</code>.</p>
+<p>In this case we also want to save our resulting data set as a new object, since we will use it for further analysis below. This is where it is so important that what is returned from <code>summarize()</code> is a tibble: we can use this directly as a new data set. One issue when we aggregate like this is that the output tibble will be grouped by default. To override this, we can end our function by piping the output into the <code>ungroup()</code> function, which is always good practice to do.</p>
+<pre><code>ucdp_cy &lt;- ucdp %&gt;% group_by(country,year) %&gt;% summarize(country_id = country_id[1],
+                                                         number_of_events = n(),
+                                                         civilian_deaths = sum(deaths_civilians),
+                                                         best = sum(best),
+                                                         low = sum(low),
+                                                         high = sum(high)) %&gt;%
+                                                         ungroup()
+</code></pre>
+<p>We have now transformed our UCDP-GED data set from an event level data set to a country-year level data set.</p>
+</div>
+<div id="group-manipulation" class="section level2 hasAnchor" number="10.4">
+<h2><span class="header-section-number">10.4</span> Group manipulation<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally for this chapter, we will look at group manipulation of data. Group manipulation is an operation we do when we need to mutate data inside our groups. The most evident use for this is when we are creating lagged variables in a panel data set, i.e. when we have time ordered observations for different groups in our data. For instance, in order to analyze intensity of violence in terms of the best estimate of fatalities, we may want to control for the number of fatalities in the previous year. We do this with the <code>lag()</code> function, which takes as input the variable or vector which we want to lag. However, if we were to just lag the best estimate in our data set, when ordered by country and year, then R would not understand that when lagging the variable it should take into account whether or not the previous observation is from the same country or not. We can solve this problem by grouping the data before we mutate, then the mutation will happen independently in each group (country) and we can thus avoid this problem. As before when we do this, it is good practice to ungroup the data at the end by piping the output into the <code>ungroup()</code> function.</p>
+<pre><code>ucdp_cy &lt;- ucdp %&gt;% group_by(country) %&gt;% 
+                    mutate(lagged_best_fatalities = lag(best)) %&gt;%
+                    ungroup()
+</code></pre>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="data-manipulation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="merging-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/10-summarize_aggregate.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

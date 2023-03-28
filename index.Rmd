@@ -1,0 +1,41 @@
+--- 
+title: "The R Researcher's companion v. 0.01"
+subtitle: "A gentle introduction to R with applications in war and peace"
+author: "David Randahl"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+# url: your book url like https://bookdown.org/yihui/bookdown
+# cover-image: path to the social sharing image like images/cover.jpg
+description: |
+  This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master's programme in peace and conflict studies at Uppsala University.
+link-citations: yes
+#github-repo: rstudio/bookdown-demo
+---
+
+# Preface {-}
+Welcome to this draft online edition of *The R Researcher's companion*. This is a project that has been in the works for a long time and is finally, hopefully, coming together. In this 'book' (really, it is just a collection lecture and workshop notes) my ambition is to convince you that R is not an obstacle to be overcome. Rather, I want to convince you that knowing R is a gateway to a fantastic new world of data analysis and exploration. I want to convince you that knowing R will open up new doors for you to understand your data, to understand your methods, and to answer research questions in ways you previously thought not possible. While learning R may seem (unnecessarily) complicated, I assure you that learning enough R to perform basic data analysis is within the grasp of anyone. 
+
+## Why another book about R? {-}
+This book is born out of half a decade of teaching R to undergraduate and graduate students in the social sciences. Teaching R in this context is always challenging as many of the students are neither interested in R itself, nor the underlying statistical theory which underpins modern data analysis and on-top of which R is built. Instead, these students are interested in the output of the data analysis, the plots, diagrams, and charts which describe the data, or the regression tables, correlations, and diagnostics from which inferences about the data can be drawn. The primary challenges for teaching R in this environment are to convince the students that R is not (much) more challenging to learn than alternatives such as SPSS or STATA (or, god forbid, Excel!) which allow them to obtain these outputs without having to rely on coding, and that learning R will actually help them better understand these outputs as they will gain a deeper understanding of the underlying data and the way that it is being processed. Compounding these challenges have been a lack of literature specifically tailored to this category of students, i.e. students with limited or no background in statistics or programming but who are keen on learning how to conduct research using R. The fundamental problem is that most books on research methodology and R fall in one of two camps, (1) books focusing on research methodology and/or data analysis with applications in R or another statistical software but without the fundamentals of R, or (2) books which are focused on data science and R from a programming perspective. Books in the first category are usually very useful for teaching the methodology and how to conduct the analysis itself, but without a strong foundation in R students may feel lost in the applications and may simply resort to copying and pasting code from the book without understanding how and why to edit this code to suit their own research questions. Books in the second category, on the other hand, are generally tailored to a different audience with a stronger interest in the *programming* side of R and who may have a more extensive background in data science and/or programming. 
+
+The book you are currently reading aims to fill this gap in the teaching literature for R. This book is supposed to be used as a *researcher's companion*, i.e. a book which you can go back to at any point during your research process to look up how certain concepts work in R and how to figure out where you've gone wrong. It assumes neither any knowledge of R beforehand, not any extensive knowledge of mathematical or statistical methodology. My hope is that this short book will to allow you to go from zero knowledge in R to being comfortable reading and writing your own code, and that it will be a support for you when doing the data analysis in R for your research projects.
+
+## What this book will teach you (and what it will not) {-}
+As this book is supposed to be a researcher's companion rather than a book on research methodology, there are some strict limitations on what this book will teach you and what it will not. This book will be strictly focused on R, the central concepts you need to understand in order to do data analysis in R, the fundamental pre-processing needed to do data analysis properly, and how to best present your results. On the other hand, this book will *not* teach you research methodology. It will *not* provide you with any fundamental understanding of data analysis techniques beyond the mechanical understanding of how to run some simpler techniques, and it will *not* help you understand diagnostics for methods or when and why to use certain types of methods over other types of methods. Thus, this book is a *companion* intended to be read alongside books which dive deeper into the substantive topics on how to conduct research and best utilize statistical models but which do not help you figure out why you're getting a specific type of error when you're running your code, how to best transform, merge, or otherwise wrangle your data, or how to make stylish and beautiful plots and tables, and how to customize them. This book is not intended to be an exhaustive guide to R, but rather as a introduction to take you over the most common hurdles you will face when embarking on your journey to become proficient in R. Once you've reached the end of this book, you should feel comfortable moving on to more advanced books on programming in R such as Hadley Wickham's fantastic books [R for data science](https://r4ds.had.co.nz/) and [Advanced R](https://adv-r.hadley.nz/) or Måns Thulin's excellent applied book [Modern Statistics with R](https://modernstatisticswithr.com/).
+
+## Outline of the book and how to read it {-}
+This book is comprised of three main parts. In the first part, we will focus on the *basics* of R including an introduction to what R is, what the difference between R and RStudio (and other IDEs) are and how a basic workflow in RStudio can look. This part is the most mechanical of the book and will introduce a lot of programming concepts such as functions, objects, and packages which are crucial in order to understand how to work with R. It will also briefly touch upon different types of data and how generic methods differ depending on these data types.
+
+The focus of the second part of the book is *data*. In this part, you will learn how to load different types of data into R, how to transform data by modifying or adding new variables to your data, and how to filter out and select parts of the data. It will also teach you how to combine data from different sources into a single data frame, how to aggregate data across different groups, and how to summarize your data. We will do all of this using the syntax (i.e. way of writing code) of the `tidyverse` package and we will build a toolbox of tools you'll be able to apply whenever you embark on a data analysis project.
+
+In the final part of the book we will look at *data presentation*. Here you will learn how to run simple statistical models, how to make beautiful and customizable plots to visualize your data and your results using the `ggplot` package, and nice-looking well-formatted regression tables using the `stargazer` package. We will also briefly look at some alternatives for making tables using a combination of the `tidyverse` syntax in the `gtsummary` package.
+
+Now without further ado, let's dive into the wonderful world of R!
+
+
+
+
+
+

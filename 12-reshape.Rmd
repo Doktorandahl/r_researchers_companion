@@ -1,0 +1,50 @@
+# (PART) Workshop 3: presenting data {-}
+# Re-shaping data
+
+Thus far in this book we have worked with data sets which from the beginning were *tidy*. However, whether or not a data set is tidy depends on what the unit of analysis we are working on is and how we perceive what the variables are. 
+
+In this chapter, we will look a bit deeper into the concept of tidy data and how we can re-shape our data to be tidy in relation to our unit of analysis. We will do this using two verb-functions from tidyverse, `pivot_longer()` and `pivot_wider()` which are inverses of one-another (i.e. if you take a data set and pivot it wider, you can reverse the process by pivoting it longer and vice versa).
+
+## Wide data and long data
+`pivot_wider()` and `pivot_longer()` refer to the process of taking either *wide*
+ or *long* data and making it either *long* or *wide*. But what is wide and long data? 
+In short, *wide* data refers to data sets which units (not necessarily *units of analysis*) such as countries, individuals, etc have one row each while *long* data refers to data sets in which units have multiple rows each, for instance one column for the case, one for the variable, and one for the value. 
+
+Using these definitions, it seems obvious that the *wide* data, in which each row corresponds to a single unit, would always be the *tidy* alternative. However, as we will see which data is tidy depends on the analysis you are doing, and primarily which the unit of analysis for the analysis is. 
+
+Let's look at two simple examples. [Here](https://github.com/Doktorandahl/teaching_data) you can download two data files containing variables of population and gdp on 163 countries. Let's read these into R and have a look:
+
+```
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

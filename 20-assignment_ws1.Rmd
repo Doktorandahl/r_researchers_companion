@@ -1,0 +1,83 @@
+# (PART) Workshop assignments {-}
+# Assignment for workshop 1 {-}
+
+```
+### Workshop 1 assignment
+### Write your code underneath each of the instructions
+
+## Basics and objects
+# Use R as a calculator to calculate 0.7 divided by the square-root of 625 (hint: the function for square roots is sqrt())
+
+# Save the results of the calculation above as an object with a, to you, intuitive name
+
+# Create an object containing at least ten numbers of your choice
+
+# Calculate the mean of this object and save it as an object.
+
+# Calculate the standard deviation of this object
+# save it as a new object, and print it to the console
+
+
+## Help files
+
+# Look at the help file for the mean function. What does the 'trim' argument in the function do, 
+# and what is its default value?
+
+# What happens if you run the mean function on your object with at least 10 numbers and set 
+# trim to 0.1? Is this what you expected?
+
+
+
+## Rectangular data structures and value access
+
+# Load the tidyverse package. 
+# Note, if you have not already installed tidyverse you need to do so first
+
+# Below you have four vectors of values relating to fatality nubmers for 20 different conflicts. 
+# Combine these four vectors into a tibble and name this something intuitive.
+
+number_fatalities <- c(123, 5321, 9543, 120, 12, 
+                       243, 123, 9877, 387, 921,
+                       8981, 23, 541, 54, 644,
+                       4185, 8, 15, 125, 352)
+
+gpd_capita <- c(3411, 24212, 221, 55512, 9822,
+                151, 5457, 2111, 35477, 1255,
+                8787, 2154, 3578, 45777, 12,
+                877, 4854, 1387, 15115, 56)
+                
+conflict_type <- c("insurgency", "war", "insurgecy", "insurgency", "war",
+                   "war", "war", "war", "insurgency", "war",
+                   "insurgency","insurgency","war","war","war",
+                   "war","war","insurgency","war","war")
+                   
+region <- c("Europe", "Africa", "Asia" ,"Asia","Latin America",
+            "Africa", "Africa", "Europe", "Latin America", "Latin America",
+            "Europe", "Asia", "Asia", "Asia", "Asia",
+            "Latin America", "Europe", "Europe", "Africa", "Asia")
+
+# Calculate the correlation between the number of fatalities and gdp per capita. 
+# Do this using both pearson's correlation and spearman's correlation.
+
+# Calculate the mean number of fatalities and the standard deviation of the number of fatalities
+
+# Make a table for how many conflicts there are in each region. Hint, use the table() function
+
+# Access the conflict_type variable in your tibble using both the $ method and the hard brackets, [], method
+
+# Access the entire third row of your tibble
+
+# Access the value in the 8th row and 3rd column of your tibble
+
+# BONUS: assume that the data you have are a random sample of conflicts. 
+# Then create a 95% confidence interval for the true mean of the number of fatalities
+
+# BONUS x2: What potential problems do you see with this confidence interval?
+
+
+
+```
+
+
+
+

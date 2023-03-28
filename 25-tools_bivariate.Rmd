@@ -1,0 +1,74 @@
+# (PART) Toolbox for hypothesis tests {-}
+
+# Bivatiate tests {-}
+This chapter is a rough toolbox for bivariate hypothesis tests. Consider this text and the content a very early and rough draft.
+
+For all of the examples below, I will assume that you have a data set loaded into R with the name `df` and it contains four variables: `binary_iv`, `continuous_iv`, `binary_dv`, and `continuous_dv`. In reality your data set could of course have any name in which case you will change the name `df` to the name of your data set. Similarly, your variables will never be called these names, so when you do this on your own you will just replace these placeholder names with your actual variable names.
+
+As always we can use the `$` operator to access our variables in the data sets as vectors, or we can use the `magrittr` style `%$%` to expose our variables (see Chapter X on the intro to tidyverse). 
+
+For certain tests, e.g. the t-test (and later, regression) we can use the formula interface to define dependent and independent variables. A formula contains the dependent variable on the left hand side and the independent variables separated with pluses, `+`, on the right hand side, with a tilde, `~` in between. I.e. a formula could look like `dependent_variable ~ independent_variable` or `dv ~ iv1 + iv2`. Almost always when we use formulas in functions in R, we also have to specify the `data` argument to be the same as our data set object.
+
+## Chi-squared tests
+Chi-squared tests are used when we have both a categorical independent variable and a categorical dependent variable, and allows us to test whether there is statistically significant covariation between the two. To run a chi-square test in R we can use the `CrossTable()` function from the `gmodels` package. The `CrossTable()` function has a lot of arguments depending on what you want to include in the output, but to just perform a chi-squred test you can set most of these arguments to `FALSE` to not cloud your output too much. To actually perform the chi-squared test you do, however, need to set the argument `chisq` to `TRUE`. Feel free to also try around turning some of these other arguments to `TRUE` and observe what happens. As always you can investigate the arguments for the `CrossTable()` function using `?CrossTable`
+
+```
+#Load the required package
+library(gmodels)
+
+#Perform a chi-square test
+
+#Option 1: use the $ operator on your data set, df
+
+# The final argument, chisq, here must be set to TRUE to perform the test
+CrossTable(df$binary_iv, df$binary_dv,
+           expected = FALSE,
+           prop.r = FALSE,
+           prop.c = FALSE,
+           prop.t = FALSE,
+           prop.chisq = FALSE,
+           chisq = TRUE) 
+          
+#Option 2: use the magrittr %$% operator on your data set, df
+library(magrittr)
+
+df %$% CrossTable(binary_iv, binary_dv,
+           expected = FALSE,
+           prop.r = FALSE,
+           prop.c = FALSE,
+           prop.t = FALSE,
+           prop.chisq = FALSE,
+           chisq = TRUE) 
+
+```
+
+Running this will give you the output you need for the chi-squared test.
+
+## T-test for the difference in means
+T-tests for the difference in means is a test which we use when we have a binary (categorical with two values) independent variable and a continuous dependent variable. The test allows us to test whether or not there is a statistically significant difference in the means between the two groups (i.e. the two categories of the independent variable). To run a t-test we can use the `t.test()` function. There are two main ways of running the t-test function. Either you have the dependent variable data for the two groups in two separate vectors, in which case you simply input the two separate vectors into the `t.test()` function as the first two arguments. More commonly, however, is that we have the data in a data set where one variable correspond to the continuous dependent variable and one variable corresponds to the binary independent variable. When we use this interface we also need to specity the `data` argument to be our data set (`df`). In this case we would run the t-test like this:
+
+```
+t.test(continuous_dv ~ binary_iv, data=df)
+```
+
+There are a lot of different arguments to the t.test function which you could try around, but to just run it you can use the above.
+
+## Correlation and correlation tests
+Correlation tests are a bivariate test slightly short of regression which we can use when we have a continuous independent variable and a continuous dependent variable. The test allows us to test whether the correlation between the two variables is statistically significant. To run a correlation test we can use the `cor.test()` function. The `cor.test()` function is easiest to use similar to the `CrossTable()` function by using the `$` operator or the magrittr `%$%` pipe like this:
+
+```
+cor.test(df$continuous_iv,df$continuous_dv)
+
+# OR
+
+df %$% cor.test(continuous_iv, continuous_dv)
+```
+
+It is also possible to run the correlation test using a one-sided formula (because correlation is not really about "dependent" and "independent" variables). To make a one-sided formula, we keep the left hand side of the tilde, `~` empty and enter both variables on the right hand side like this:
+
+```
+cor.test(~continuous_iv + continuous_dv, data=df)
+```
+
+
+

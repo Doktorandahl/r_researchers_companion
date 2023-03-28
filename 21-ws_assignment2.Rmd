@@ -1,0 +1,37 @@
+# Assignment for workshop 2 {-}
+
+```
+### Workshop 2 assignment
+### Write your code underneath each of the instructions
+
+# Download the DECO data on deadly electoral violence events and the reduced vdem dataset available in the file area on studium (and the module page for the Rworkshop)
+
+# Load these two data sets into R
+
+# Inspect the variable names of the two data sets
+
+# Create a dummy variable taking the value one if the number of civilian deaths for an event is greater than 0 in the DECO data
+
+# Filter out all observations which do not have any civilian deaths in the DECO data
+
+# Select the variables id, type_of_violence, country_id, country, region, civilian_deaths, best, high, and low to keep in your data (note you use the DECO data here)
+
+(Note, you can do all three of these steps in one go)
+
+# Present summary statistics of the mean, standard deviation, and max of civilian_deaths by type_of_violence in the DECO data
+
+# Present summary statistics of the mean, standard deviation, and max of civilian_deaths by type_of_violence and region in the DECO data
+
+## Bonus, what does this tell us?
+
+# Aggregate the deco data to the country-year level
+
+# Merge your aggregated data set with the reduced vdem data set. Note, I have made sure that the country id variables of both data sets match
+
+## Bonus, which type of _join is appropriate if we are planning on investigating electoral violence? Why?
+
+```
+
+
+
+

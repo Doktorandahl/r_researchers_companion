@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 21 Calculate the correlation between the number of fatalities and gdp per capita. | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.28 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 21 Calculate the correlation between the number of fatalities and gdp per capita. | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 21 Calculate the correlation between the number of fatalities and gdp per capita. | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2022-11-04" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="combine-these-four-vectors-into-a-tibble-and-name-this-something-intuitive..html"/>
+<link rel="next" href="do-this-using-both-pearsons-correlation-and-spearmans-correlation..html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>6</b> Writing for-loops and functions</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html#basics-and-objects"><i class="fa fa-check"></i><b>6.1</b> Basics and objects</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="use-r-as-a-calculator-to-calculate-0.html"><a href="use-r-as-a-calculator-to-calculate-0.html"><i class="fa fa-check"></i><b>7</b> Use R as a calculator to calculate 0.7 divided by the square-root of 625 (hint: the function for square roots is sqrt())</a></li>
+<li class="chapter" data-level="8" data-path="save-the-results-of-the-calculation-above-as-an-object-with-a-to-you-intuitive-name.html"><a href="save-the-results-of-the-calculation-above-as-an-object-with-a-to-you-intuitive-name.html"><i class="fa fa-check"></i><b>8</b> Save the results of the calculation above as an object with a, to you, intuitive name</a></li>
+<li class="chapter" data-level="9" data-path="create-an-object-containing-at-least-ten-numbers-of-your-choice.html"><a href="create-an-object-containing-at-least-ten-numbers-of-your-choice.html"><i class="fa fa-check"></i><b>9</b> Create an object containing at least ten numbers of your choice</a></li>
+<li class="chapter" data-level="10" data-path="calculate-the-mean-of-this-object-and-save-it-as-an-object..html"><a href="calculate-the-mean-of-this-object-and-save-it-as-an-object..html"><i class="fa fa-check"></i><b>10</b> Calculate the mean of this object and save it as an object.</a></li>
+<li class="chapter" data-level="11" data-path="calculate-the-standard-deviation-of-this-object.html"><a href="calculate-the-standard-deviation-of-this-object.html"><i class="fa fa-check"></i><b>11</b> Calculate the standard deviation of this object</a></li>
+<li class="chapter" data-level="12" data-path="save-it-as-a-new-object-and-print-it-to-the-console.html"><a href="save-it-as-a-new-object-and-print-it-to-the-console.html"><i class="fa fa-check"></i><b>12</b> save it as a new object, and print it to the console</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="save-it-as-a-new-object-and-print-it-to-the-console.html"><a href="save-it-as-a-new-object-and-print-it-to-the-console.html#help-files"><i class="fa fa-check"></i><b>12.1</b> Help files</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="look-at-the-help-file-for-the-mean-function.html"><a href="look-at-the-help-file-for-the-mean-function.html"><i class="fa fa-check"></i><b>13</b> Look at the help file for the mean function. What does the ‘trim’ argument in the function do,</a></li>
+<li class="chapter" data-level="14" data-path="and-what-is-its-default-value.html"><a href="and-what-is-its-default-value.html"><i class="fa fa-check"></i><b>14</b> and what is its default value?</a></li>
+<li class="chapter" data-level="15" data-path="what-happens-if-you-run-the-mean-function-on-your-object-with-at-least-10-numbers-and-set.html"><a href="what-happens-if-you-run-the-mean-function-on-your-object-with-at-least-10-numbers-and-set.html"><i class="fa fa-check"></i><b>15</b> What happens if you run the mean function on your object with at least 10 numbers and set</a></li>
+<li class="chapter" data-level="16" data-path="trim-to-0.html"><a href="trim-to-0.html"><i class="fa fa-check"></i><b>16</b> trim to 0.1? Is this what you expected?</a>
+<ul>
+<li class="chapter" data-level="16.1" data-path="trim-to-0.html"><a href="trim-to-0.html#rectangular-data-structures-and-value-access"><i class="fa fa-check"></i><b>16.1</b> Rectangular data structures and value access</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="load-the-tidyverse-package..html"><a href="load-the-tidyverse-package..html"><i class="fa fa-check"></i><b>17</b> Load the tidyverse package.</a></li>
+<li class="chapter" data-level="18" data-path="note-if-you-have-not-already-installed-tidyverse-you-need-to-do-so-first.html"><a href="note-if-you-have-not-already-installed-tidyverse-you-need-to-do-so-first.html"><i class="fa fa-check"></i><b>18</b> Note, if you have not already installed tidyverse you need to do so first</a></li>
+<li class="chapter" data-level="19" data-path="below-you-have-four-vectors-of-values-relating-to-fatality-nubmers-for-20-different-conflicts..html"><a href="below-you-have-four-vectors-of-values-relating-to-fatality-nubmers-for-20-different-conflicts..html"><i class="fa fa-check"></i><b>19</b> Below you have four vectors of values relating to fatality nubmers for 20 different conflicts.</a></li>
+<li class="chapter" data-level="20" data-path="combine-these-four-vectors-into-a-tibble-and-name-this-something-intuitive..html"><a href="combine-these-four-vectors-into-a-tibble-and-name-this-something-intuitive..html"><i class="fa fa-check"></i><b>20</b> Combine these four vectors into a tibble and name this something intuitive.</a></li>
+<li class="chapter" data-level="21" data-path="calculate-the-correlation-between-the-number-of-fatalities-and-gdp-per-capita..html"><a href="calculate-the-correlation-between-the-number-of-fatalities-and-gdp-per-capita..html"><i class="fa fa-check"></i><b>21</b> Calculate the correlation between the number of fatalities and gdp per capita.</a></li>
+<li class="chapter" data-level="22" data-path="do-this-using-both-pearsons-correlation-and-spearmans-correlation..html"><a href="do-this-using-both-pearsons-correlation-and-spearmans-correlation..html"><i class="fa fa-check"></i><b>22</b> Do this using both pearson’s correlation and spearman’s correlation.</a></li>
+<li class="chapter" data-level="23" data-path="calculate-the-mean-number-of-fatalities-and-the-standard-deviation-of-the-number-of-fatalities.html"><a href="calculate-the-mean-number-of-fatalities-and-the-standard-deviation-of-the-number-of-fatalities.html"><i class="fa fa-check"></i><b>23</b> Calculate the mean number of fatalities and the standard deviation of the number of fatalities</a></li>
+<li class="chapter" data-level="24" data-path="make-a-table-for-how-many-conflicts-there-are-in-each-region.html"><a href="make-a-table-for-how-many-conflicts-there-are-in-each-region.html"><i class="fa fa-check"></i><b>24</b> Make a table for how many conflicts there are in each region. Hint, use the table() function</a></li>
+<li class="chapter" data-level="25" data-path="access-the-conflict_type-variable-in-your-tibble-using-both-the-method-and-the-hard-brackets-method.html"><a href="access-the-conflict_type-variable-in-your-tibble-using-both-the-method-and-the-hard-brackets-method.html"><i class="fa fa-check"></i><b>25</b> Access the conflict_type variable in your tibble using both the $ method and the hard brackets, [], method</a></li>
+<li class="chapter" data-level="26" data-path="access-the-entire-third-row-of-your-tibble.html"><a href="access-the-entire-third-row-of-your-tibble.html"><i class="fa fa-check"></i><b>26</b> Access the entire third row of your tibble</a></li>
+<li class="chapter" data-level="27" data-path="access-the-value-in-the-8th-row-and-3rd-column-of-your-tibble.html"><a href="access-the-value-in-the-8th-row-and-3rd-column-of-your-tibble.html"><i class="fa fa-check"></i><b>27</b> Access the value in the 8th row and 3rd column of your tibble</a></li>
+<li class="chapter" data-level="28" data-path="bonus-assume-that-the-data-you-have-are-a-random-sample-of-conflicts..html"><a href="bonus-assume-that-the-data-you-have-are-a-random-sample-of-conflicts..html"><i class="fa fa-check"></i><b>28</b> BONUS: assume that the data you have are a random sample of conflicts.</a></li>
+<li class="chapter" data-level="29" data-path="then-create-a-95-confidence-interval-for-the-true-mean-of-the-number-of-fatalities.html"><a href="then-create-a-95-confidence-interval-for-the-true-mean-of-the-number-of-fatalities.html"><i class="fa fa-check"></i><b>29</b> Then create a 95% confidence interval for the true mean of the number of fatalities</a></li>
+<li class="chapter" data-level="30" data-path="bonus-x2-what-potential-problems-do-you-see-with-this-confidence-interval.html"><a href="bonus-x2-what-potential-problems-do-you-see-with-this-confidence-interval.html"><i class="fa fa-check"></i><b>30</b> BONUS x2: What potential problems do you see with this confidence interval?</a></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="31" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>31</b> Importing data</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="calculate-the-correlation-between-the-number-of-fatalities-and-gdp-per-capita." class="section level1 hasAnchor" number="21">
+<h1><span class="header-section-number">Chapter 21</span> Calculate the correlation between the number of fatalities and gdp per capita.<a href="calculate-the-correlation-between-the-number-of-fatalities-and-gdp-per-capita..html#calculate-the-correlation-between-the-number-of-fatalities-and-gdp-per-capita." class="anchor-section" aria-label="Anchor link to header"></a></h1>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="combine-these-four-vectors-into-a-tibble-and-name-this-something-intuitive..html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="do-this-using-both-pearsons-correlation-and-spearmans-correlation..html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/07-assignment_ws1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

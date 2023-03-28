@@ -1,0 +1,123 @@
+# Data frames, tibbles, and matrices
+
+With a working understanding of what objects and functions are in R we can start to move towards using R for what it is really useful for; analyzing data sets. In the previous chapter, we created objects which were a collection of values, i.e. vectors, to describe the vote share of a political party across different voting districts. We also had two corresponding vectors, one containing the number of voters per district, and one containing the names of the districts. We created these vectors by using the `c()` function, like this:
+
+```
+# Number of voters in each electoral district
+voters_per_district <- c(618880, 1286117, 318003, 
+                         1037879, 505025, 493486, 
+                         1621599, 976879, 1232128, 1231804) 
+
+# Vote share for the first party in each electoral district
+vote_share_per_district <- c(0.506, 0.583, 0.618, 
+                             0.445, 0.219, 0.461, 
+                             0.680, 0.280, 0.532, 0.612) 
+                             
+# Names of districs
+
+district_names <- c("Capital", "North", "North-East",
+                    "North-West", "Western", "Central",
+                    "Mountains-West", "Mountains-East",
+                    "Big Island", "Small Island") # District names
+```
+
+We also saw that we could access individual values in the vectors, known as *elements*, by using hard brackets and the number of the element we wanted to access. For instance, writing `district_names[2]` would return the value `"North"`, as `"North"` is the second element of the `district_names` vector. However, since all these three vectors different aspects (the vote share, number of voters, and names) of the same thing, i.e. electoral districts, we can think of these three vectors as three variables in a data set, and we could combine these three vectors into a single data object to make life a bit simpler for us. 
+
+The most common way to do this is to combine these vectors into a *rectangular* data structure with the variables (i.e. individual vectors) as the columns of the rectangle, and the individual observations (or units of analysis) as the rows. Thus, when we combine these three vectors into a data object we would do this such as the first row would refer to the values for the capital district and would contain its name, `"Capital"`, its vote share for the party, `0.506`, and the number of voters in the district, `618880`. The second row would contain the same values for the North-district, and so on. 
+
+There are several different rectangular data structures in R, but the most common ones are
+* Matrices, which only allow a data type within it. I.e. only numeric values or character values. If you try to use both characters and numbers in a matrix, R will automatically convert the numbers to a character version of the number. If this happen, you will see that the numbers are enclosed by quotation marks (e.g. `"0.506"`) which means that R will treat this object as if it is text rather than number. Matrices are useful when doing calculations, since it is possible to use matrix algebra with matrices which will substantially speed up any calculations. Matrices are also useful for storing data and results in for-loops, which we will see in the next chapter. As data sets, matrices are, however, much less useful since they lack a lot of the functionality of data frames and tibbles (below).
+* Data frames, which is the original data set structure in R. Data frames (which have the class `data.frame`) can handle different data types for different variables, and offers a lot of additional functionality for transforming and managing the data.
+* Tibbles, which are, according to their own website, "a modern re-imagining of the data.frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are data.frames that are lazy and surly: they do less and complain more". In essence, tibbles are an upgraded version of the data frame which have a lot better functionality.
+
+Tibbles are part of the tidyverse set of packages which offer a lot of functionality for managing and plotting data and which use a specific set of functions and syntax. We will discuss the tidyverse in much more detail in later chapters as we build more or less our entire data management toolbox from these tidyverse packages. For all of these reasons, tibbles will be the primary type of data structure we will use for data sets in this R companion. To create a tibble we use the intuitively named `tibble()` function. To get access to the `tibble()` function we first need to install and load the tidyverse package.
+
+```
+install.packages("tidyverse") # installing tidyverse
+library(tidyverse) # loading tidyverse
+```
+
+When you load tidyverse you will see a lot of output in the console. This is because the tidyverse is actually a collection of different packages, and when loading tidyverse you also load all of the package within the tidyverse, which is what this output tells us.
+
+```
+── Attaching packages ────────────────────
+✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+✔ readr   2.1.2      ✔ forcats 0.5.2 
+── Conflicts ──── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+```
+
+We can now create a tibble using the `tibble()` function. In this tibble we want to have the district names, the number of voters per district, and the vote share of the party per district. We simply add these vectors as arguments for the tibble function and R will create a tibble with the variables (i.e. columns) having the same names as the vectors we put in. Don't forget that in order to be able to access the data later, we need to store the new tibble as an object using the assignment operator,  `<-`.
+
+```
+districts <- tibble(district_names,voters_per_district,vote_share_per_district)
+```
+
+When you run this code you will see that a new object, called *districts* appeared in the environment under the heading "Data". If you click on this object R will open up our districts tibble in the top left pane.
+
+[Figure of this]
+
+Here you can see that we now have a nice rectangular data structure where each row corresponds to an individual district and each column to a variable. This is what we would call a *data set*. Now, when we created the districts tibble we used got the names of the vectors as the variable (column) names. This is however just the default behavior of the `tibble()` function. If we want other variable names we can specify them directly by naming the arguments inside the tibble function like this:
+
+```
+districts <- tibble(name = district_names,
+                    total_voters = voters_per_district,
+                    vote_share = vote_share_per_district)
+```
+
+Notice that again it is OK to have line breaks inside a function, but we still need to have commas between the arguments. Notice also that if you now look at the districts tibble that the names of the variables are now *name*, *total_voters*, and *vote_share*.  Let us now add another variable to the districts tibble, indicating whether the district is urban or rural. We have access to this in a vector like this:
+
+```
+district_type <- c("urban","urban","rural","urban","rural","rural","rural","urban","rural","rural")
+```
+
+We can add this vector to our tibble using the `bind_cols()` function, where we put our original tibble as the first argument, and the vector we want to add as the second column. Within the `bind_cols()` function we can also specify the name of the new variable as in the `tibble()` function. In this case I want to call this variable *urban_rural*. Notice also that we need to again assign the output from the `bind_cols()` function to an object. In this case we want to keep the name `districts` so we overwrite the previous `districts` object with the new, like this
+
+```
+districts <- bind_cols(districts, urban_rural = district_type)
+```
+
+If you now click the districts object in the environment pane you will see that the districts tibble has four variables, with the fourth being called *urban_rural* as we specified in the `bind_cols()` function.
+
+## Accessing elements and columns
+
+So, now that we have our data in a tibble, what can we do with it? Quite a lot to be honest. Whenever you do analysis on data you would want it to be in a data set which means that the data is properly sorted so that you know that the values matches across observations. For now, however, we are going to learn how to access observations and variables inside a tibble. The first thing we are going to look at is using the dollar sign `$` to access individual variables as vectors. To do this, we simply write the name of the tibble we want to access the variable from, followed by a dollar sign and the variable name. This will return the values of the variable as a tibble for us, like this.
+
+```
+districts$total_voters # Accessing the 'total_voters' variable in the 'districts' tibble
+
+districts$name # Accessing the 'name' variable in the 'districts' tibble
+```
+
+This is useful if we, for instance, want to apply a function such as the mean or standard deviation to one of the variables in the data set. For instance
+
+```
+mean(districts$vote_share) # Calculating the mean vote share for the party across all districts
+sd(districts$vote_share) # Calculating the standard deviation of the vote share for the party across all districts
+```
+
+When you run this you should see that the mean vote share for the party across the districts is approximately 0.494 and that the standard deviation is approximately 0.148.
+
+Similarly, if we want to make a table of the number of urban/rural districts we can do this by running 
+
+```
+table(districts$urban_rural)
+```
+
+
+We can also access individual rows, columns, or elements of the tibble by using hard brackets, `[]`, just as we did in vectors. This type of access is available for all rectangular data structures. When we access a value with hard brackets in a vector we simply input one value though, which corresponds to the position of that value in the vector. When we do value access using hard brackets with rectangular data structures we need to put in *two* values, one corresponding to the row and one corresponding to the column (in that order) and these should be separated by commas. Thus, we can access the value in the third row and fourth column by writing `districts[3,4]` and the value of the first row, first column by writing `districts[1,1]`. We can also access entire rows and entire columns by leaving one of these arguments empty. That is, if we want to see all values of the fifth row, we can write `districts[5,]`. As you can see, we still write out the comma but we do not put in any value there. When we run this we get all values for the "Western" district. Similarly, we can get an entire column by leaving the rows argument empty. For instance, if we want to access the first column we write `districts[,1]`.
+
+One important difference between using the `$` sign and hard brackets specifically when working with tibbles is that hard brackets will always return a tibble, while `$` will return a vector. This is not of huge importance right now, but we will later in this tutorial see some examples where this distinction is of importance.
+
+
+
+
+
+
+
+
+
+

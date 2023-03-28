@@ -1,0 +1,27 @@
+# (PART) Workshop 2: Data in R {-}
+# Working directory and RStudio projects
+
+In this part of the book we are going to work with reading in, manipulating, and summarizing/aggregating data. Before we do, however, we need to talk about RStudio *projects* and the *working directory*.
+
+## Working directory
+Whenever you open up an R session, regardless of if it is in RStudio, the R console, or any other R IDE, your session will have a *working directory*. You can see what working directory you are in by running the function `getwd()` without any arguments. The working directory is where everything you want to save in R will be saved unless you specify somewhere else, and R will also be able to access all files in the working directory (and sub-directories) easily without you needing to know the full path. If you go to the files tab in the files, plots, and help pane, you will also be able to see all files and directories which are in the working directory.
+
+Why is the working directory important? Well, the working directory is important since it helps us organize our work and keep all of our files in one place. When working with R it is good practice to keep one working directory for each project you are working on.
+
+## RStudio projects
+Closely related to the working directory are RStudio project. A project in RStudio is simply a file which keeps track the environment, workspace, and other things related to RStudio. It is always good practice to create an  RStudio project for each research project you are working on. You can create a new project by going to `File > New project`. When you click this you will be asked if you want to create a new directory (folder) for the project which will serve as its working directory, or if you want to create the project in an existing directory which will then serve as your working directory. If you have some data files, scripts, or other things which you know you will use for the project in a folder already, it is probably wise to create the RStudio project in that folder, otherwise you select create new directory. If you select *new directory* you will then have to again select that you want an R Project in the next window, and then you select where to create the directory. 
+
+Once you have created a project, you should always try to keep all files relevant for the project, such as scripts and data, in that directory, and if you create output which you want to save such as figures or tables, you should also save those in this working directory. When we reach the chapter on importing data, you will see why it is convenient to keep your data in the working directory. Similarly, when we learn about plots and table you will see that the easiest place to save these outputs are in the working directory.
+
+### Changing working directory
+There are situations when you want to change the working directory of a project. To do this, the easiest way is to go to `Session > set working directory > Choose directory`. This will allow you to select a new folder as the working directory. You can then easily change back to either the source file location (the location of the currently open script or other document) or the project location.
+
+
+
+
+
+
+
+
+
+

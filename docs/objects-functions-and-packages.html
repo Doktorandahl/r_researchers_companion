@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 4 Objects, functions, and packages | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 4 Objects, functions, and packages | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 4 Objects, functions, and packages | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="basic-workflow-in-r-using-rstudio.html"/>
+<link rel="next" href="data-frames-tibbles-and-matrices.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="objects-functions-and-packages" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">Chapter 4</span> Objects, functions, and packages<a href="objects-functions-and-packages.html#objects-functions-and-packages" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Now that we have a basic understanding about what it means to run code and what scripts are, let us introduce the fundamental workhorses of R. Objects, functions, and packages.</p>
+<div id="objects" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> Objects<a href="objects-functions-and-packages.html#objects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An object is simply something, anything, that we want R to store so that we can access it. It can be anything from a single value, to a collection of values, to a data set, a function, or even a list of other objects. The only limit for objects are basically that each object needs to have a unique name, which is used to call the object.</p>
+<p>To create an object we use the so called assignment operator, which is simply this arrow: <code>&lt;-</code> where we put the name of the object that we want to create on the left hand side of the arrow, and the object itself on the right hand side of the arrow. The name of the object cannot start with a number and is not allowed to contain spaces, or a number of special signs such as <code>+, -, :, $</code> and others. A good convention to get around the fact that you are not allowed to use spaces in names is to use either snake_case, in which you separate words with underscores <code>_</code> and which is the convention I will follow in this book, CamelCase, in which you put a capital letter as the first letter in each word, or period.case, in which you put periods between words. Another good convention is to name your objects descriptively so that you remember what they refer to. Using what we know, we can now create our first object by running the following code. Remember that you should always keep track of what you are doing, so you should write the code in the script and then running it by highlighting it and pressing Ctrl+Enter.</p>
+<pre><code>my_first_object &lt;- 32</code></pre>
+<p>If you look at the environment pane, you will now see that an object appeared in our environment, and that object is called ‘my_first_object.’ The name here is arbitrary, and we could have named it anything (as long as it does not contain spaces or begin with a number). We can now call our object by simply writing the object name and running the code:</p>
+<pre><code>&gt; my_first_object
+[1] 32</code></pre>
+<p>As you can see, R simply fetches the object and prints it out. As ‘my_first_object’ is a number, we can treat it as any other number and perform mathematical operation on it, such as running <code>my_first_object*2+4</code> which would yield:</p>
+<pre><code>&gt; my_first_object*2+4
+[1] 68</code></pre>
+<p>We can also define a second object, and assign a number to it. For instance</p>
+<pre><code>another_object &lt;- 21</code></pre>
+<p>and then we can call both objects to for instance add them together</p>
+<pre><code>&gt; my_first_object + another_object
+[1] 53</code></pre>
+<p>If we then want to replace either of the variables, we can simply overwrite them by creating a new object with the same name. For instance by running</p>
+<pre><code>another_object &lt;- 15</code></pre>
+<p>Then when we add the objects together we will see that</p>
+<pre><code>&gt; my_first_object + another_object
+[1] 47</code></pre>
+<p>So, how is this useful in practice? Well, let’s say that you are interested in the number of people who have voted for a certain party in an election, but you only have access to the total number of people who voted and the vote shares of each party. We could then for instance run</p>
+<pre><code># Calculating the number of votes for a specific party
+
+voting_pop &lt;- 9321800 # The number of people who cast their votes
+vote_share &lt;- 0.52 # The vote share of the party of interest
+
+number_of_votes &lt;- voting_pop*vote_share # Number of votes cast for the party</code></pre>
+<p>If we then want to investigate the number of votes for another party, all we need to do is simply change the value for the object <code>vote_share</code> to the vote share of the other party we are interested in knowing the number of votes for. If we are doing many calculations using a single object, we can save a lot of time by structuring our calculations in a script like above.</p>
+<p>Another alternative if we want to investigate how many people voted for a number of different parties is to create a <em>vector</em> of values containing the vote shares of each party we are interested in. A vector is simply a collection of values, and are created with the function <code>c()</code>. We will talk more about functions very shortly, but for now it is enough to know that <code>c()</code> is a function which takes multiple values, separated by commas, and combines them into one object. Let us run</p>
+<pre><code>vote_shares &lt;- c(0.52,0.44,0.04) # Vote shares of all parties of interest</code></pre>
+<p>We can then access each individual values in the <code>vote_shares</code> vector by using hard brackets <code>[]</code> with the position inside the brackets. You can try this by running</p>
+<pre><code>vote_shares[1]
+vote_shares[2]
+vote_shares[3]</code></pre>
+<p>Similarly we can obtain the number of people voting for each party by multiplying the vote shares from each party with the total number of voters</p>
+<pre><code>voting_pop*vote_shares[1] # Number of people who voted for the first party
+voting_pop*vote_shares[2] # Number of people who voted for the second party
+voting_pop*vote_shares[3] # Number of people who voted for the third party</code></pre>
+</div>
+<div id="functions" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Functions<a href="objects-functions-and-packages.html#functions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>While objects are everything that we store in R, functions are everything that we <em>do</em> in R. Functions make the calculations, and functions are what makes R a statistical programming language. A function is a piece of code that takes some object or objects and performs some operations on them. For instance, we could take the mean or sum of some values, we can run a regression, or we can make simulations about which countries are likely to descend into civil wars. Functions can be recognized by the fact that they are almost always followed by a parenthesis. Within this parenthesis we will put the arguments of the function. An argument can be thought of as a direction or an instruction to the function. A function may have more arguments than just one, and in that case we separate the arguments with commas. These other arguments may be instructions such as “remove missing values before doing the calculations,” or “make the points in this plot blue,” or any other kind of instruction which the function allows. Functions in R are objects as well, and called just like other objects by writing their name and follow the form <code>function_name(argument_name)</code>. If there are multiple arguments to a function we separate these by commas such that we have <code>function_name(argument1,argument2)</code>. We can try this out by applying the <code>sum()</code> function to our vector of vote shares.</p>
+<pre><code>sum(vote_shares)</code></pre>
+<p>In this case, <code>sum()</code> is the function we are calling and our object <code>vote_shares</code> is the first (and only) argument. As we can see, the vote shares in our vector sums to one.</p>
+<p>Now, let us expand our example a bit and let us say that there are 10 electoral districts of different sizes and we have access to both the number of voters in each districts, and the vote shares for the first party in each district. We can enter these into R by running</p>
+<pre><code># Number of voters in each electoral district
+voters_per_district &lt;- c(618880, 1286117, 318003, 
+                         1037879, 505025, 493486, 
+                         1621599, 976879, 1232128, 1231804) 
+
+# Vote share for the first party in each electoral district
+vote_share_per_district &lt;- c(0.506, 0.583, 0.618, 
+                             0.445, 0.219, 0.461, 
+                             0.680, 0.280, 0.532, 0.612) </code></pre>
+<p>Note that we can make line breaks in the <code>c()</code> function here so that we do not have to scroll sideways to see everything.</p>
+<p>We can now make some calculations on these vectors. For instance, by running</p>
+<pre><code>mean(vote_share_per_district)</code></pre>
+<p>we can see that the mean vote share across the districts for the first party was approximately 49.4%, that is, a bit lower than their total vote share of 52%. How is this possible? Well, the electoral districts are of varying sizes, and thus since the total vote share is higher than the mean vote share, this would indicate that the party got a higher vote share in the larger districts. We can see whether or not this holds true by checking the correlation between the two vectors. We do this with the function <code>cor()</code>. <code>cor()</code> can give us the correlation between two different vectors if we input the two vectors as the first and second arguments of the function.</p>
+<p>Thus, to calculate this correlation, we simply run</p>
+<pre><code>cor(vote_share_per_district,voters_per_district)</code></pre>
+<p>As you can see we separate the two arguments <code>vote_share_per_district</code> and <code>voters_per_district</code> by a comma, and then we get the result <code>0.42695</code> indicating a positive correlation between the two vectors and thus that the party got a higher vote share in the larger districts. Whether or not this correlation is substantive, large, or important is a different question and not something we will dive into here. We can also store the output of functions as new objects if we want to be able to access them later. To do so we simply use the assignment operator <code>&lt;-</code> in order to create a new object. For instance, if we want to store the correlation above we can do so by for instance running:</p>
+<pre><code>size_share_correlation &lt;- cor(vote_share_per_district,voters_per_district)</code></pre>
+<p>When you run this, you should see a new object appear in the environment with the name ‘size_share_correlation.’</p>
+<div id="default-arugments-and-named-arguments" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Default arugments and named arguments<a href="objects-functions-and-packages.html#default-arugments-and-named-arguments" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>If you have worked with correlations before you will know that there are different types of correlations such as pearson’s, spearman’s, and kendall’s correlations. So which correlation is it that we have calculated above? And how would we know? R can handle all three of the correlations above, and all of them within the regular <code>cor()</code> function. The reason that we can run the <code>cor()</code> function without specifying which type of correlation we want is that R has a system of <em>default arguments</em>, i.e. values which the argument will take <em>unless</em> an other value is specified. In the case of the <code>cor()</code> function, pearson’s correlation is the default and thus the one which is calculated above. If we want to use another typ of correlation we can specify this using the <em>named argument</em> ‘method.’ To run the correlation function with spearman’s correlation instead we can thus add the argument method to the function call and specify that it is spearman’s that we want, like this:</p>
+<pre><code>cor(vote_share_per_district,voters_per_district,method = &quot;spearman&quot;)</code></pre>
+<p>This tells the <code>cor()</code> function to override the default method “pearson” with “spearman” which is what we want. Notice that we have to use quotation marks, <code>"</code> around spearman. If we do not, R will try to look for an object named spearman to input as the method rather than understanding that “spearman” is a piece of text that we want this argument to take. You will learn more about this in the next section on data types and classes. We can see that when we calculate the correlation using spearman’s correlation instead of pearson’s correlation, the correlation drops to approximately 0.394, i.e. the relationship between vote share for the first party and the number of voters is estimated to be slightly weaker.</p>
+</div>
+<div id="function-help-files" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Function help files<a href="objects-functions-and-packages.html#function-help-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In the example above, I simply told you that in order to change the type of correlation computed you use the ‘methods’ argument. But how would you know that if I had not told you? And how do you figure out which arguments are available in any given function?</p>
+<p>You do this via the R function help files. You can access the help file for a function by writing a question mark before the function’s name, i.e. <code>?function_name</code>. So to get to the help file for the <code>cor()</code> function, we simply write <code>?cor</code> in R. When you do this you should see the help file for the <code>cor()</code> function appear in the <em>files, plots, and help</em> pane. It is worth noting that some functions may share the same help file if they relate to a similar family of functions. For instance, the <code>cor()</code> function shares it help file with the <code>var()</code>, <code>cov()</code>, and <code>cov2cor()</code> functions.</p>
+<div class="figure">
+<img src="figures/help_file.png" alt="" />
+<p class="caption">Help-file for the <code>cor()</code> function in R</p>
+</div>
+<p>In this help file you will see basic information about the function, what it does, which arguments it accepts, and what the output of the function is. Each help file follows the same structure, with the following parts.</p>
+<ul>
+<li>Description: A short description of the function, or family of functions are, what they are used for, and what they output</li>
+<li>Usage: A set of examples of how to use the function(s) and the default values of the arguments</li>
+<li>Arguments: A list of all arguments available for the function and what type of objects or values these arguments should take</li>
+<li>Details: A detailed description of what the function does, how it works, and how different arguments affect the behavior of the function. There may also be in depth discussions about the limitations of parts of the function, or special situations which may be of interest.</li>
+<li>Value: Details on what the output from the function are</li>
+<li>Note: Additional notes added by the authors of the function</li>
+<li>References: Books and/or articles that implementation of the function is built upon</li>
+<li>See Also: a list of related function with similar functionality that may be interesting for the reader</li>
+<li>Examples: One or more examples of how to use the function</li>
+</ul>
+<p>If we look at the arguments section of the help file for the <code>cor()</code> function, you can see that there are six arguments listed there. However, not all of these can be used in the <code>cor()</code> function, since this help file is shared between several function. If you look in the ‘Usage’ section, you can see that only four of the six arguments are used in <code>cor()</code>, these are <code>x</code>, <code>y</code>, <code>use</code>, and <code>method</code>. However, when we used our function we did not specify the <code>x</code> and <code>y</code> arguments. Instead, we just input our two vectors as the first and second arguments and it worked regardless. Why?</p>
+<p>Well, in reality, <em>all</em> arguments in R functions are named arguments. However, if you simply input the arguments in the correct order, R will interpret the first argument you have entered to be the first argument of the function, regardless of what that argument is named. Thus, when we input our two vectors, <code>vote_share_per_district</code> and <code>voters_per_district</code>, R assumed that these two vectors were corresponding to the first and second arguments, i.e. <code>x</code> and <code>y</code> of the function. When we added our method argument, on the other hand, we had to explicitly name this argument since method is the <em>fourth</em> rather than the <em>third</em> argument of the <code>cor()</code> function. See what happens if you now run the function <code>cor(vote_share_per_district,voters_per_district, "spearman")</code>, i.e. running the function without specifying that <code>"spearman"</code> is the <code>method</code> argument. You should get an error message which says:</p>
+<pre><code>&gt; cor(vote_share_per_district,voters_per_district, &quot;spearman&quot;)
+Error in cor(vote_share_per_district, voters_per_district, &quot;spearman&quot;) : 
+  invalid &#39;use&#39; argument</code></pre>
+<p>As you can see, R interpreted <code>"spearman"</code> as the value for the third argument <code>use</code> instead of as the fourth argument <code>method</code> which is what we wanted. A good practice is therefore to always use named arguments in the function, unless you are absolutely certain of the order of the arguments.</p>
+</div>
+</div>
+<div id="data-types-and-classes" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Data types and classes<a href="objects-functions-and-packages.html#data-types-and-classes" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Thus far we have almost only worked with objects that are numbers. There are, however, a large number of different data and object types which you will encounter when learning R. You can check what the type of an object by running the function <code>class()</code> on the object.</p>
+<pre><code>&gt; class(vote_share)
+[1] &quot;numeric&quot;</code></pre>
+<p>As you can see, R tells us what we already know. That the object <code>vote_share</code> is a number, i.e. that it has the class <code>"numeric"</code>.</p>
+<p>There are a large number of different classes in R that you will encounter, but some of the most common ones are:</p>
+<ul>
+<li><code>numeric</code> which are simply one numeric value, or a collection of numeric values known as a <em>vector</em></li>
+<li><code>character</code> which are made up of text and are usually referred to as <em>strings</em>. These strings are always enclosed by quotation marks. An object with class <code>character</code> may also be a collection of strings, and is then known as a character vector</li>
+<li><code>factor</code> which are a variable with multiple categories. These categories may be numeric or labelled (i.e. have names). In general, the classes <code>factor</code> and <code>character</code> are very similar, but behave differently in some cases. We will return to the differences between these two at a later stage.</li>
+<li><code>matrix</code> which is a rectangular data structure with rows and columns. Matrices can be thought of as a collection of vectors where each vector corresponds to a single column or row. Importantly, matrices require that all the data inside the matrix are of the same type, for instance <code>numeric</code>, <code>character</code>, or <code>factor</code></li>
+<li><code>data.frame</code> or <code>tibble</code> which are similar to a matrix, but allows for different data types inside the same data frame. Data frames are the general structure for data sets where each row corresponds to an individual observation, and each column corresponds to a variable. We will dive a bit deeper into the difference between <code>matrix</code>, <code>data.frame</code> and <code>tibble</code> in the next chapter.</li>
+</ul>
+<p>What class an object has affects what methods you can use on it and the default behavior of certain functions. For instance, correlations are only ever relevant between numeric values and trying to input a character vector in the <code>cor()</code> function will thus result in an error. This is evident from the Arguments section of the <code>cor()</code> help file where it clearly said that <code>x</code> and <code>y</code> had to be numeric arguments. Let’s say that we create a character vector of the names of the ten electoral districts in our example above, and try running a correlation between the district names and the vote shares</p>
+<pre><code>district_names &lt;- c(&quot;Capital&quot;, &quot;North&quot;, &quot;North-East&quot;,
+                    &quot;North-West&quot;, &quot;Western&quot;, &quot;Central&quot;,
+                    &quot;Mountains-West&quot;, &quot;Mountains-East&quot;,
+                    &quot;Big Island&quot;, &quot;Small Island&quot;) # District names
+
+# If you already created the vote_share_per_district object above you do not need to create it again
+vote_share_per_district &lt;- c(0.506, 0.583, 0.618, 
+                             0.445, 0.219, 0.461, 
+                             0.680, 0.280, 0.532, 0.612) 
+cor(district_names,vote_shares)</code></pre>
+<p>If you do this you will get an error message which says <code>Error in cor(district_names, vote_shares) : 'x' must be numeric</code>. I.e. since the object <code>district_names</code> is a character vector and not a numeric vector, we cannot run a correlation between these two vectors. Similarly, if you want to use mathematical operations such as <code>+</code> or <code>-</code> you cannot use objects which are not numbers. You can look up the class of any object by simply using the function <code>class()</code> on the object. Certain object will have multiple classes, and some will have only one. As we proceed through this companion book we will encounter more examples of how object classes affect the behavior of functions.</p>
+</div>
+<div id="packages" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Packages<a href="objects-functions-and-packages.html#packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Now that we have a basic understanding of what objects, functions, arguments, and classes are we can turn to one of the most powerful strengths of R as a programming language: that anyone can write their own functions and make them available in <em>packages</em>. The open source nature of the R language allows user to define and write their own functions to do custom things in R. This is an incredibly powerful feature which may allow you to speed up your work a lot if you are mechanically doing the same thing many times, or allow you to build your own tools to answer the questions you are interested in. Writing your own functions in R is not at all complicated, and we will look at some simple examples of this in chapter 6. However, what makes the R community so vibrant is the possibility of writing your own functions and bundling them into a package which you can make publicly available to anyone. This means that if you have developed a tool which others may find useful you can allow to download and use your package to do these things. Similarly, by working in R you are able to utilize the over 17,000 unique packages which are available in R to do the most varied types of analysis.</p>
+<p>A package in R is simply a collection of functions and/or data which the author has decided to make available, and which has passed some specific tests about form and function by the CRAN network. Once a package has been made available at CRAN, any R user can install the package by using the function <code>install.packages("package_name")</code> where you insert the name of the package inside the quotation marks. Once the package has been installed you can access the package by running the <code>library("package_name")</code> function. Sidenote: while you have to use quotation marks around the package name in the <code>install.packages()</code> function, the quotation marks around the package name are optional in the <code>library()</code> function.</p>
+<p>We can try this out by installing the <code>MLmetrics</code> package which contains tools for evaluating model performance and then loading. Note that package names are case sensitive, so it is important to ensure you use capital letters at the appropriate places.</p>
+<pre><code>install.packages(&quot;MLmetrics&quot;)
+library(MLmetrics)</code></pre>
+<p>You have now loaded the <code>MLmetrics</code> package and have access to all the functions available here. We can check this by for instance looking at the help file of one of these functions, for instance the <code>RMSE</code> function which calculates the root mean squared error of predictions compared to their corresponding true values. When you get to the help page for this function you can see at the top that it says <code>RMSE{MLmetrics}</code>, which indicates that the <code>RMSE</code> function is part of the <code>MLmetrics</code> package. This is also visible at the bottom of the help file where the package name and version is written out.</p>
+<p>Packages are one of the main strengths of R, as the vast number of packages available means that you have access to a near infinite pool of tools that have been developed by user all around the world and by users in all types of fields. Whenever you find yourself lacking a specific tool to do a specific thing in R, chances are that someone else have already developed a tool for doing it and have made it available through a package. To find the appropriate packages to use, the most useful way is simply too search online ‘how to do X in R’ and you will most likely end up finding a package which allows you to do X in R.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="basic-workflow-in-r-using-rstudio.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="data-frames-tibbles-and-matrices.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/04-functions.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

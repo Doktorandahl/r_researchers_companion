@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 13 Plotting data in ggplot | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 13 Plotting data in ggplot | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 13 Plotting data in ggplot | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="re-shaping-data.html"/>
+<link rel="next" href="presenting-results-in-tables.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plotting-data-in-ggplot" class="section level1 hasAnchor" number="13">
+<h1><span class="header-section-number">Chapter 13</span> Plotting data in ggplot<a href="plotting-data-in-ggplot.html#plotting-data-in-ggplot" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="re-shaping-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="presenting-results-in-tables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/13-ggplot.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 5 Data frames, tibbles, and matrices | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 5 Data frames, tibbles, and matrices | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 5 Data frames, tibbles, and matrices | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="objects-functions-and-packages.html"/>
+<link rel="next" href="working-directory-and-rstudio-projects.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-frames-tibbles-and-matrices" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Chapter 5</span> Data frames, tibbles, and matrices<a href="data-frames-tibbles-and-matrices.html#data-frames-tibbles-and-matrices" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>With a working understanding of what objects and functions are in R we can start to move towards using R for what it is really useful for; analyzing data sets. In the previous chapter, we created objects which were a collection of values, i.e. vectors, to describe the vote share of a political party across different voting districts. We also had two corresponding vectors, one containing the number of voters per district, and one containing the names of the districts. We created these vectors by using the <code>c()</code> function, like this:</p>
+<pre><code># Number of voters in each electoral district
+voters_per_district &lt;- c(618880, 1286117, 318003, 
+                         1037879, 505025, 493486, 
+                         1621599, 976879, 1232128, 1231804) 
+
+# Vote share for the first party in each electoral district
+vote_share_per_district &lt;- c(0.506, 0.583, 0.618, 
+                             0.445, 0.219, 0.461, 
+                             0.680, 0.280, 0.532, 0.612) 
+                             
+# Names of districs
+
+district_names &lt;- c(&quot;Capital&quot;, &quot;North&quot;, &quot;North-East&quot;,
+                    &quot;North-West&quot;, &quot;Western&quot;, &quot;Central&quot;,
+                    &quot;Mountains-West&quot;, &quot;Mountains-East&quot;,
+                    &quot;Big Island&quot;, &quot;Small Island&quot;) # District names</code></pre>
+<p>We also saw that we could access individual values in the vectors, known as <em>elements</em>, by using hard brackets and the number of the element we wanted to access. For instance, writing <code>district_names[2]</code> would return the value <code>"North"</code>, as <code>"North"</code> is the second element of the <code>district_names</code> vector. However, since all these three vectors different aspects (the vote share, number of voters, and names) of the same thing, i.e. electoral districts, we can think of these three vectors as three variables in a data set, and we could combine these three vectors into a single data object to make life a bit simpler for us.</p>
+<p>The most common way to do this is to combine these vectors into a <em>rectangular</em> data structure with the variables (i.e. individual vectors) as the columns of the rectangle, and the individual observations (or units of analysis) as the rows. Thus, when we combine these three vectors into a data object we would do this such as the first row would refer to the values for the capital district and would contain its name, <code>"Capital"</code>, its vote share for the party, <code>0.506</code>, and the number of voters in the district, <code>618880</code>. The second row would contain the same values for the North-district, and so on.</p>
+<p>There are several different rectangular data structures in R, but the most common ones are
+* Matrices, which only allow a data type within it. I.e. only numeric values or character values. If you try to use both characters and numbers in a matrix, R will automatically convert the numbers to a character version of the number. If this happen, you will see that the numbers are enclosed by quotation marks (e.g. <code>"0.506"</code>) which means that R will treat this object as if it is text rather than number. Matrices are useful when doing calculations, since it is possible to use matrix algebra with matrices which will substantially speed up any calculations. Matrices are also useful for storing data and results in for-loops, which we will see in the next chapter. As data sets, matrices are, however, much less useful since they lack a lot of the functionality of data frames and tibbles (below).
+* Data frames, which is the original data set structure in R. Data frames (which have the class <code>data.frame</code>) can handle different data types for different variables, and offers a lot of additional functionality for transforming and managing the data.
+* Tibbles, which are, according to their own website, “a modern re-imagining of the data.frame, keeping what time has proven to be effective, and throwing out what is not. Tibbles are data.frames that are lazy and surly: they do less and complain more.” In essence, tibbles are an upgraded version of the data frame which have a lot better functionality.</p>
+<p>Tibbles are part of the tidyverse set of packages which offer a lot of functionality for managing and plotting data and which use a specific set of functions and syntax. We will discuss the tidyverse in much more detail in later chapters as we build more or less our entire data management toolbox from these tidyverse packages. For all of these reasons, tibbles will be the primary type of data structure we will use for data sets in this R companion. To create a tibble we use the intuitively named <code>tibble()</code> function. To get access to the <code>tibble()</code> function we first need to install and load the tidyverse package.</p>
+<pre><code>install.packages(&quot;tidyverse&quot;) # installing tidyverse
+library(tidyverse) # loading tidyverse</code></pre>
+<p>When you load tidyverse you will see a lot of output in the console. This is because the tidyverse is actually a collection of different packages, and when loading tidyverse you also load all of the package within the tidyverse, which is what this output tells us.</p>
+<pre><code>── Attaching packages ────────────────────
+✔ ggplot2 3.3.6      ✔ purrr   0.3.4 
+✔ tibble  3.1.8      ✔ dplyr   1.0.10
+✔ tidyr   1.2.0      ✔ stringr 1.4.1 
+✔ readr   2.1.2      ✔ forcats 0.5.2 
+── Conflicts ──── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()</code></pre>
+<p>We can now create a tibble using the <code>tibble()</code> function. In this tibble we want to have the district names, the number of voters per district, and the vote share of the party per district. We simply add these vectors as arguments for the tibble function and R will create a tibble with the variables (i.e. columns) having the same names as the vectors we put in. Don’t forget that in order to be able to access the data later, we need to store the new tibble as an object using the assignment operator, <code>&lt;-</code>.</p>
+<pre><code>districts &lt;- tibble(district_names,voters_per_district,vote_share_per_district)</code></pre>
+<p>When you run this code you will see that a new object, called <em>districts</em> appeared in the environment under the heading “Data.” If you click on this object R will open up our districts tibble in the top left pane.</p>
+<p>[Figure of this]</p>
+<p>Here you can see that we now have a nice rectangular data structure where each row corresponds to an individual district and each column to a variable. This is what we would call a <em>data set</em>. Now, when we created the districts tibble we used got the names of the vectors as the variable (column) names. This is however just the default behavior of the <code>tibble()</code> function. If we want other variable names we can specify them directly by naming the arguments inside the tibble function like this:</p>
+<pre><code>districts &lt;- tibble(name = district_names,
+                    total_voters = voters_per_district,
+                    vote_share = vote_share_per_district)</code></pre>
+<p>Notice that again it is OK to have line breaks inside a function, but we still need to have commas between the arguments. Notice also that if you now look at the districts tibble that the names of the variables are now <em>name</em>, <em>total_voters</em>, and <em>vote_share</em>. Let us now add another variable to the districts tibble, indicating whether the district is urban or rural. We have access to this in a vector like this:</p>
+<pre><code>district_type &lt;- c(&quot;urban&quot;,&quot;urban&quot;,&quot;rural&quot;,&quot;urban&quot;,&quot;rural&quot;,&quot;rural&quot;,&quot;rural&quot;,&quot;urban&quot;,&quot;rural&quot;,&quot;rural&quot;)</code></pre>
+<p>We can add this vector to our tibble using the <code>bind_cols()</code> function, where we put our original tibble as the first argument, and the vector we want to add as the second column. Within the <code>bind_cols()</code> function we can also specify the name of the new variable as in the <code>tibble()</code> function. In this case I want to call this variable <em>urban_rural</em>. Notice also that we need to again assign the output from the <code>bind_cols()</code> function to an object. In this case we want to keep the name <code>districts</code> so we overwrite the previous <code>districts</code> object with the new, like this</p>
+<pre><code>districts &lt;- bind_cols(districts, urban_rural = district_type)</code></pre>
+<p>If you now click the districts object in the environment pane you will see that the districts tibble has four variables, with the fourth being called <em>urban_rural</em> as we specified in the <code>bind_cols()</code> function.</p>
+<div id="accessing-elements-and-columns" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Accessing elements and columns<a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>So, now that we have our data in a tibble, what can we do with it? Quite a lot to be honest. Whenever you do analysis on data you would want it to be in a data set which means that the data is properly sorted so that you know that the values matches across observations. For now, however, we are going to learn how to access observations and variables inside a tibble. The first thing we are going to look at is using the dollar sign <code>$</code> to access individual variables as vectors. To do this, we simply write the name of the tibble we want to access the variable from, followed by a dollar sign and the variable name. This will return the values of the variable as a tibble for us, like this.</p>
+<pre><code>districts$total_voters # Accessing the &#39;total_voters&#39; variable in the &#39;districts&#39; tibble
+
+districts$name # Accessing the &#39;name&#39; variable in the &#39;districts&#39; tibble</code></pre>
+<p>This is useful if we, for instance, want to apply a function such as the mean or standard deviation to one of the variables in the data set. For instance</p>
+<pre><code>mean(districts$vote_share) # Calculating the mean vote share for the party across all districts
+sd(districts$vote_share) # Calculating the standard deviation of the vote share for the party across all districts</code></pre>
+<p>When you run this you should see that the mean vote share for the party across the districts is approximately 0.494 and that the standard deviation is approximately 0.148.</p>
+<p>Similarly, if we want to make a table of the number of urban/rural districts we can do this by running</p>
+<pre><code>table(districts$urban_rural)</code></pre>
+<p>We can also access individual rows, columns, or elements of the tibble by using hard brackets, <code>[]</code>, just as we did in vectors. This type of access is available for all rectangular data structures. When we access a value with hard brackets in a vector we simply input one value though, which corresponds to the position of that value in the vector. When we do value access using hard brackets with rectangular data structures we need to put in <em>two</em> values, one corresponding to the row and one corresponding to the column (in that order) and these should be separated by commas. Thus, we can access the value in the third row and fourth column by writing <code>districts[3,4]</code> and the value of the first row, first column by writing <code>districts[1,1]</code>. We can also access entire rows and entire columns by leaving one of these arguments empty. That is, if we want to see all values of the fifth row, we can write <code>districts[5,]</code>. As you can see, we still write out the comma but we do not put in any value there. When we run this we get all values for the “Western” district. Similarly, we can get an entire column by leaving the rows argument empty. For instance, if we want to access the first column we write <code>districts[,1]</code>.</p>
+<p>One important difference between using the <code>$</code> sign and hard brackets specifically when working with tibbles is that hard brackets will always return a tibble, while <code>$</code> will return a vector. This is not of huge importance right now, but we will later in this tutorial see some examples where this distinction is of importance.</p>
+
+</div>
+</div>
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="objects-functions-and-packages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="working-directory-and-rstudio-projects.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/05-dataframes.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

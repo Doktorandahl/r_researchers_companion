@@ -1,0 +1,29 @@
+# (PART) Youtube videos of the chapters {-}
+
+# Video links {-}
+Here are recorded walkthroughs of the as yet written chapters:
+
+
+## Chapters 1-3
+
+Outline of R studio: https://youtu.be/YLWrNxyOCIg
+
+Objects and functions: https://youtu.be/cvI5VQrjQo0
+
+Packages: https://youtu.be/6e-njIVaLss
+
+Data frames, tibbles, and matrices: https://youtu.be/JpASML4FJLU
+
+## Chapters 6-11
+
+Working directories and projects: https://youtu.be/J34SjcCG-aI
+
+Tidyverse and pipes: https://youtu.be/9_olbGPMME4
+
+Import data: https://youtu.be/W3Lmh758vPA
+
+Data manipulation: https://youtu.be/PFpJc17P8hg
+
+Summarizing and aggregating data + group manipulation: https://youtu.be/_FUB-MHi7L4
+
+Merging data: https://youtu.be/ONTw2FOlso0

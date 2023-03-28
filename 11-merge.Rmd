@@ -1,0 +1,62 @@
+# Merging data
+
+Oftentimes when we do data analysis we want to merge different data sets into one data set in order to use data from different sources. Merging data sets in R is quite straightforward, all you need are two data sets which you want to merge, and one or several variables which uniquely identifies which observations correspond to one another in the two data sets. As with all data handling in this book we will use the tidyverse approach with the different `_join` functions. 
+
+In the example below, we will merge the ucdp country-year data set which we created in the previous chapter (if you want to follow along here you can go back to that chapter to load and create the data properly) with a set of mock gdp data, which you can download [here](https://github.com/Doktorandahl/teaching_data). Remember to put the downloaded data in your working directory for easier access.
+
+When you load and inspect the gdp example data by running
+
+```
+gdp <- readRDS("gdp_example.RDS")
+colnames(gdp)
+```
+
+you will see that this data set contains 8 variables, of which a bunch are ID and year-variables and two are gdp-related. Now if we want to merge this with the ucdp-data we need to figure out what the unique keys are which match the cases (country-years) to one another. Usually it is a bad idea to try and match cases on country names, since names may differ from data source to data source. My favorite example of this is the Democratic Republic of the Congo, which in different data sets may be called, "DRC", "DROC", "Congo, the democratic republic of", "Congo Kinshasa", "Congo, Kinshasa", "Congo-Kinshasa", "DR Congo", "The Democratic Republic of the Congo", "Democratic Republic of Congo", "République démocratique du Congo", "RDC", "Congo, Democratic Republic", or even (still) "Zaire", and perhaps even other (especially if you have data sets written in other languages than English). A much better idea is to match cases based on id numbers. The key here is to make sure that your id numbers match one another. The UCDP uses the Gleditsch-Ward numeric (gwn or gwno) country id system. The GDP data which you loaded in contain a few different ID numbers, the `vdem_country_id`, the `gw_id` and the `country_id`. Spoiler alert, the `gw_id` and `country_id` in this data set are the same, but for reasons that will soon be obvious there are two of them. Similarly, the variables `year` and `Year` are identical. If your data sets do not have matching id number for countries, you can use the `countrycode()` function from the intuitively named `countrycode` package to convert country codes between systems. 
+
+Once we have figured out the keys which uniquely match cases in one data set to the other, we can join these. We do this with the `_join` functions, and there are four of these. `inner_join()`, `left_join()`, `right_join()`, and `full_join()`. All of these functions follow the same conventions for how to be used and they only differ in which cases are kept in the output. For all of these functions, the first two arguments of the function are the two data sets which we want to join. Then to the differences between the `_join` functions:
+* `inner_join()` keeps all of the cases that are present in *both* of the data sets. I.e. it will only keep the observations with are present in both the UCDP and GDP data
+* `left_join()` keeps all of the cases that are present in the first (left) data set. This means that if there are cases in the second data set which are not in the first, these will be excluded. Similarly, if there are cases in the first data set which are not in the second, those cases will receive `NA` values on those variables in the first data set
+* `right_join()` is the reverse of `left_join` and keeps all observations in the second data set
+* `full_join()` keeps all cases which are present in *either* the first or the second data set. Cases which have no match in the other data set will receive `NA` values on the variables which are not present.
+
+The join functions always try to match cases based on variables with the same name in both data sets, if we do not specify anything else. Since we know that the `country_id` and `year` variables match in both of our data sets, we can thus simply merge them like this:
+
+```
+ucdp_gdp_inner <- inner_join(ucdp_cy,gdp) # if we want an inner join
+ucdp_gdp_left <- left_join(ucdp_cy,gdp) # if we want a left join
+ucdp_gdp_right <- right_join(ucdp_cy,gdp) # if we want a right join
+ucdp_gdp_full <- full_join(ucdp_cy,gdp) # if we want a full join
+```
+
+Feel free to explore the differences between the four different joins. 
+
+Now, our identifying variables are not always called the same thing in each of the data sets. If we have keys with different names in the different data sets we can help the join functions to identify these by using the `by` argument. The `by` argument follows a slightly strange structure. It takes as input two or a multiple of two strings (text) with an equal sign in between telling the function the name of the identifying variable in the data set on the left and on the right respectively. Important to remember is that when join automatically figures out which variables to join by it can select multiple variables automatically (and it prints this to the console as an information message), but when we use `by` we need to specify each of the identifying keys ourselves. If we have multiple keys, we have to use a vector (with the `c()` function) between the different keys. For instance, we know that the `gw_id` in the gdp data also matches ucdp:s country id. We can then join these data sets using the `gw_id` and `Year` (notice that I use the one with a capital Y) variables, like this (only showing the case for the left join, but the same logic applies to all joins)
+
+```
+ucdp_gdp_left <- left_join(ucdp_cy,gdp, by = c("country_id" = "gw_id",
+                                               "year" = "Year")
+
+```
+
+As you can see, each variable name is enclosed with quotes. Now, when you look at the resulting data set, you can see that there are now some changes. We have some new variables that are called `year.x`, `year.y`, and `country_id.y`. This is because there were variables with the same names in one of the two data sets which were not used for matching the data. This means that R have to add both variables to the new data set. In order to keep unique names for each variable, it appends `.x` to variable names from the left data set, and `.y` to variable names from the right data set. This can be overridden by the `suffix` argument in the `_join` functions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

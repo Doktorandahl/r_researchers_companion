@@ -1,0 +1,59 @@
+# Introduction to the tidyverse
+
+We have now a basic understanding of how data sets look in R and what tibbles are. In the following chapters we are going to work with how to import, manipulate, aggregate, and summarize data in R. As always in R there is a multitude of ways to do this, but we will use the conventions, functions, and syntax of the *tidyverse*. 
+
+Tidyverse is a collection of packages which makes working with data easier in R and revolves around what is known as *tidy* data. Tidy data are data of the same structure as we had in our example data set in the previous chapter, i.e. data sets where each row corresponds to a single observation and each column to the variables which are measured for each observation. The tidyverse differs from other types of R code and packages in that it aims to be consistent with function structure, argument names, and overall syntax, as well as to ensure that the inputs and outputs from the functions of the tidyverse are compatible with one-another. 
+
+Working in the tidyverse offers a lot of benefits, it makes your code cleaner and easier to follow; it makes it easier for others to read your code; it makes it easier to find help; and it allows you to learn a single syntax for data management in R, rather than learning conventions of a lot of different packages to all different parts of data management. 
+
+## Pipes
+One of the main ways in which the tidyverse helps us to clean up our code is through the use of *pipes*. Pipes in the tidyverse are made so that we can take one object and easily put it in as the first argument of a function. To create a pipe, we use the pipe operator `%>%` and we put what we want to pipe on the left hand side of the pipe and the function we want to pipe the object into on the right hand side of the pipe.
+
+This allows us to chain function calls together in one body of code, as the output of functions are also objects which can be piped along to the next function. Piping works with any objects in R, but is especially useful when we are doing multiple operations at once. We are going to see this especially in the data manipulation and aggregation/summarizing chapters. For now, we will just try the pipe in practice on a simple example:
+
+```
+library(tidyverse)
+#Calculating a mean using the dplyr pipe
+
+# This is a vector of some numbers
+some_numbers <- c(1, 3, 4, 5,
+                  4, 2, 1, 4)
+
+# We can calculate the mean using the pipe like this
+some_numbers %>% mean()
+```
+
+As you can see, we take what is left of the pipe and input it as the first argument to the mean function. Since we do not need any other arguments for the mean function in this case we do not need to add any additional arguments.
+
+## The magrittr exposition pipe
+The most commonly used pipe in tidyverse is the `dplyr` pipe, i.e. `%>%`. There is, however, another useful pipe which deserves a mention, it is the `magrittr` pipe, `%$%`. The `magrittr` pipe is useful when we have functions which require as inputs variables from a data set. For instance, if we want to run a correlation analysis on two variables in a data set, we would ordinarily have to write the name of the data set `$` and the name of the variable. The magrittr pipe simplifies this by exposing the variables in the dataset on the left hand side of the pipe so that these variables can be accessed directly by their names in a function. For instance, let us work with the `districts` data set from the previous chapters to look at the correlation between `vote_share_per_district` and `voters_per_district`. You can create the `districts` data set by running
+```
+districts <- tibble(name = c("Capital", "North", "North-East",
+                    "North-West", "Western", "Central",
+                    "Mountains-West", "Mountains-East",
+                    "Big Island", "Small Island"),
+                    total_voters = c(618880, 1286117, 318003, 
+                         1037879, 505025, 493486, 
+                         1621599, 976879, 1232128, 1231804),
+                    vote_share = c(0.506, 0.583, 0.618, 
+                             0.445, 0.219, 0.461, 
+                             0.680, 0.280, 0.532, 0.612) )
+```
+
+Ordinarily to run correlation on these two variables you would need to run the following:
+```
+cor(districts$total_voters,districts$vote_share)
+```
+i.e. we would need to preface our variable names with `districts$` for each vector. With the `magrittr` on the other hand we can expose the variables in `districts` and run
+```
+library(magrittr) # note, magrittr is not part of tidyverse and needs to be installed first
+
+districts %$% cor(total_voters,vote_share)
+```
+
+While it may not seem immediately useful, the magrittr pipe helps us write more clear and succinct code, and also has the upside of being compatible with outputs from the chained piped operations which may be useful if we are intending to filter or manipulate the data before we put it in to the function at the end.
+
+
+
+
+

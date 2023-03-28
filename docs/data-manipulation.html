@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Data manipulation | The R Researcher’s companion v. 0.01</title>
+  <meta name="description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 9 Data manipulation | The R Researcher’s companion v. 0.01" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 9 Data manipulation | The R Researcher’s companion v. 0.01" />
+  
+  <meta name="twitter:description" content="This is an accompanying book for the R workshops for the Methods II and Methods II Advanced courses in the Master’s programme in peace and conflict studies at Uppsala University." />
+  
+
+<meta name="author" content="David Randahl" />
+
+
+<meta name="date" content="2023-02-08" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="importing-data.html"/>
+<link rel="next" href="summarazing-data-grouping-aggregation-and-group-manipulation.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">The R Researcher's companion</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#why-another-book-about-r"><i class="fa fa-check"></i>Why another book about R?</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-this-book-will-teach-you-and-what-it-will-not"><i class="fa fa-check"></i>What this book will teach you (and what it will not)</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#outline-of-the-book-and-how-to-read-it"><i class="fa fa-check"></i>Outline of the book and how to read it</a></li>
+</ul></li>
+<li class="part"><span><b>I Workshop 1: Introduction and basics of R</b></span></li>
+<li class="chapter" data-level="1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html"><i class="fa fa-check"></i><b>1</b> What is R and why should you learn it?</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#r-a-programming-language-for-data-analysis"><i class="fa fa-check"></i><b>1.1</b> R, a programming language for data analysis</a></li>
+<li class="chapter" data-level="1.2" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#why-learn-r"><i class="fa fa-check"></i><b>1.2</b> Why learn R?</a></li>
+<li class="chapter" data-level="1.3" data-path="what-is-r-and-why-should-you-learn-it.html"><a href="what-is-r-and-why-should-you-learn-it.html#how-to-approach-learning-r"><i class="fa fa-check"></i><b>1.3</b> How to approach learning R</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html"><i class="fa fa-check"></i><b>2</b> R, RStudio, and how to get started</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#rstudio-and-other-ides"><i class="fa fa-check"></i><b>2.1</b> RStudio and other IDEs</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="r-rstudio-and-how-to-get-started.html"><a href="r-rstudio-and-how-to-get-started.html#installing-rstudio"><i class="fa fa-check"></i><b>2.1.1</b> Installing RStudio</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html"><i class="fa fa-check"></i><b>3</b> Basic workflow in R using RStudio</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#running-code"><i class="fa fa-check"></i><b>3.1</b> Running code</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#scripts"><i class="fa fa-check"></i><b>3.1.1</b> Scripts</a></li>
+<li class="chapter" data-level="3.1.2" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#commenting-in-a-script"><i class="fa fa-check"></i><b>3.1.2</b> Commenting in a script</a></li>
+<li class="chapter" data-level="3.1.3" data-path="basic-workflow-in-r-using-rstudio.html"><a href="basic-workflow-in-r-using-rstudio.html#keeping-track-of-our-work-and-saving-scripts"><i class="fa fa-check"></i><b>3.1.3</b> Keeping track of our work and saving scripts</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html"><i class="fa fa-check"></i><b>4</b> Objects, functions, and packages</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#objects"><i class="fa fa-check"></i><b>4.1</b> Objects</a></li>
+<li class="chapter" data-level="4.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#functions"><i class="fa fa-check"></i><b>4.2</b> Functions</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#default-arugments-and-named-arguments"><i class="fa fa-check"></i><b>4.2.1</b> Default arugments and named arguments</a></li>
+<li class="chapter" data-level="4.2.2" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#function-help-files"><i class="fa fa-check"></i><b>4.2.2</b> Function help files</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#data-types-and-classes"><i class="fa fa-check"></i><b>4.3</b> Data types and classes</a></li>
+<li class="chapter" data-level="4.4" data-path="objects-functions-and-packages.html"><a href="objects-functions-and-packages.html#packages"><i class="fa fa-check"></i><b>4.4</b> Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html"><i class="fa fa-check"></i><b>5</b> Data frames, tibbles, and matrices</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="data-frames-tibbles-and-matrices.html"><a href="data-frames-tibbles-and-matrices.html#accessing-elements-and-columns"><i class="fa fa-check"></i><b>5.1</b> Accessing elements and columns</a></li>
+</ul></li>
+<li class="part"><span><b>II Workshop 2: Data in R</b></span></li>
+<li class="chapter" data-level="6" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html"><i class="fa fa-check"></i><b>6</b> Working directory and RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#working-directory"><i class="fa fa-check"></i><b>6.1</b> Working directory</a></li>
+<li class="chapter" data-level="6.2" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#rstudio-projects"><i class="fa fa-check"></i><b>6.2</b> RStudio projects</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="working-directory-and-rstudio-projects.html"><a href="working-directory-and-rstudio-projects.html#changing-working-directory"><i class="fa fa-check"></i><b>6.2.1</b> Changing working directory</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html"><i class="fa fa-check"></i><b>7</b> Introduction to the tidyverse</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#pipes"><i class="fa fa-check"></i><b>7.1</b> Pipes</a></li>
+<li class="chapter" data-level="7.2" data-path="introduction-to-the-tidyverse.html"><a href="introduction-to-the-tidyverse.html#the-magrittr-exposition-pipe"><i class="fa fa-check"></i><b>7.2</b> The magrittr exposition pipe</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="importing-data.html"><a href="importing-data.html"><i class="fa fa-check"></i><b>8</b> Importing data</a></li>
+<li class="chapter" data-level="9" data-path="data-manipulation.html"><a href="data-manipulation.html"><i class="fa fa-check"></i><b>9</b> Data manipulation</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="data-manipulation.html"><a href="data-manipulation.html#filtering-data"><i class="fa fa-check"></i><b>9.1</b> Filtering data</a></li>
+<li class="chapter" data-level="9.2" data-path="data-manipulation.html"><a href="data-manipulation.html#selection"><i class="fa fa-check"></i><b>9.2</b> Selection</a></li>
+<li class="chapter" data-level="9.3" data-path="data-manipulation.html"><a href="data-manipulation.html#mutation"><i class="fa fa-check"></i><b>9.3</b> Mutation</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="data-manipulation.html"><a href="data-manipulation.html#creating-categorical-or-dummy-variables"><i class="fa fa-check"></i><b>9.3.1</b> Creating categorical or dummy variables</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="data-manipulation.html"><a href="data-manipulation.html#piping-it-all-together"><i class="fa fa-check"></i><b>9.4</b> Piping it all together</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html"><i class="fa fa-check"></i><b>10</b> Summarazing data, grouping, aggregation, and group manipulation</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-data"><i class="fa fa-check"></i><b>10.1</b> Summarizing data</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#summarizing-across-multiple-variables"><i class="fa fa-check"></i><b>10.1.1</b> Summarizing across multiple variables</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#grouping-data"><i class="fa fa-check"></i><b>10.2</b> Grouping data</a></li>
+<li class="chapter" data-level="10.3" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#aggregation"><i class="fa fa-check"></i><b>10.3</b> Aggregation</a></li>
+<li class="chapter" data-level="10.4" data-path="summarazing-data-grouping-aggregation-and-group-manipulation.html"><a href="summarazing-data-grouping-aggregation-and-group-manipulation.html#group-manipulation"><i class="fa fa-check"></i><b>10.4</b> Group manipulation</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="merging-data.html"><a href="merging-data.html"><i class="fa fa-check"></i><b>11</b> Merging data</a></li>
+<li class="part"><span><b>III Workshop 3: presenting data</b></span></li>
+<li class="chapter" data-level="12" data-path="re-shaping-data.html"><a href="re-shaping-data.html"><i class="fa fa-check"></i><b>12</b> Re-shaping data</a>
+<ul>
+<li class="chapter" data-level="12.1" data-path="re-shaping-data.html"><a href="re-shaping-data.html#wide-data-and-long-data"><i class="fa fa-check"></i><b>12.1</b> Wide data and long data</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="plotting-data-in-ggplot.html"><a href="plotting-data-in-ggplot.html"><i class="fa fa-check"></i><b>13</b> Plotting data in ggplot</a></li>
+<li class="chapter" data-level="14" data-path="presenting-results-in-tables.html"><a href="presenting-results-in-tables.html"><i class="fa fa-check"></i><b>14</b> Presenting results in tables</a></li>
+<li class="part"><span><b>IV Advanced topics</b></span></li>
+<li class="chapter" data-level="15" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html"><i class="fa fa-check"></i><b>15</b> Writing for-loops and functions</a>
+<ul>
+<li class="chapter" data-level="15.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#for-loops"><i class="fa fa-check"></i><b>15.1</b> For-loops</a>
+<ul>
+<li class="chapter" data-level="15.1.1" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#storing-the-results-of-a-for-loop"><i class="fa fa-check"></i><b>15.1.1</b> Storing the results of a for-loop</a></li>
+<li class="chapter" data-level="15.1.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#nesting-for-loops"><i class="fa fa-check"></i><b>15.1.2</b> Nesting for-loops</a></li>
+</ul></li>
+<li class="chapter" data-level="15.2" data-path="writing-for-loops-and-functions.html"><a href="writing-for-loops-and-functions.html#writing-functions"><i class="fa fa-check"></i><b>15.2</b> Writing functions</a></li>
+</ul></li>
+<li class="part"><span><b>V Workshop assignments</b></span></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-1.html"><a href="assignment-for-workshop-1.html"><i class="fa fa-check"></i>Assignment for workshop 1</a></li>
+<li class="chapter" data-level="" data-path="assignment-for-workshop-2.html"><a href="assignment-for-workshop-2.html"><i class="fa fa-check"></i>Assignment for workshop 2</a></li>
+<li class="part"><span><b>VI Toolbox for hypothesis tests</b></span></li>
+<li class="chapter" data-level="" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html"><i class="fa fa-check"></i>Bivatiate tests</a>
+<ul>
+<li class="chapter" data-level="15.3" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#chi-squared-tests"><i class="fa fa-check"></i><b>15.3</b> Chi-squared tests</a></li>
+<li class="chapter" data-level="15.4" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#t-test-for-the-difference-in-means"><i class="fa fa-check"></i><b>15.4</b> T-test for the difference in means</a></li>
+<li class="chapter" data-level="15.5" data-path="bivatiate-tests.html"><a href="bivatiate-tests.html#correlation-and-correlation-tests"><i class="fa fa-check"></i><b>15.5</b> Correlation and correlation tests</a></li>
+</ul></li>
+<li class="part"><span><b>VII Youtube videos of the chapters</b></span></li>
+<li class="chapter" data-level="" data-path="video-links.html"><a href="video-links.html"><i class="fa fa-check"></i>Video links</a>
+<ul>
+<li class="chapter" data-level="15.6" data-path="video-links.html"><a href="video-links.html#chapters-1-3"><i class="fa fa-check"></i><b>15.6</b> Chapters 1-3</a></li>
+<li class="chapter" data-level="15.7" data-path="video-links.html"><a href="video-links.html#chapters-6-11"><i class="fa fa-check"></i><b>15.7</b> Chapters 6-11</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">The R Researcher’s companion v. 0.01</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="data-manipulation" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Data manipulation<a href="data-manipulation.html#data-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We now know how to import data into R. Let’s move on to basic data manipulation. As always for these chapters we will use the conventions of the tidyverse packages when doing so. For this chapter, I will consider data manipulation any action which makes changes to the data set by for instance removing cases or variables from it, or creating new variables in it. It does, however, not entail data aggregation, which is the focus of the next chapter.</p>
+<p>The tidyverse approach to data manipulation (as well as aggregation) is through the use of verb-functions. A verb-function is simply a function whose name is a verb which describes what it does, such as <code>filter()</code>, <code>select()</code>, and <code>mutate()</code>, which we will go through one by one.</p>
+<p>In the examples below, I will use the UCDP GED data set which we imported in the previous chapter, so if you want to follow along in the code below you can look in the previous chapter how to download and import this data. Important to know that the steps we take in this chapter are applicable across different data sets, just exchange the name of the data set and variables used in the examples below with your own names of data sets and variables.</p>
+<div id="filtering-data" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Filtering data<a href="data-manipulation.html#filtering-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Filtering data is the process of choosing which cases we should keep in our data set, and which cases we should filter out. We do this with the <code>filter()</code> function, which takes the data set in which we are supposed to filter out cases as the first argument, and then it takes conditions which we want to use to filter the data as the following arguments. We can include however many conditions as we want in our filtering statement, we simply separate them by commas (as regular arguments).A condition is simply something that for each case can be either TRUE or not (i.e FALSE). For instance, we may only want to keep cases from a particular country or region. Useful operators when writing conditionals are:
+* <code>==</code>, which is true if the value on the left is equal to the value on the right. Note that we have to use two equal signs when we use this conditional
+* <code>!=</code> which is true if the value on the left is not equal to the value on the right
+* <code>&gt;</code>, which is which is true if the value on the left is greater than the value on the right
+* <code>&gt;=</code> which is true if the value on the left is equal to or greater than the value on the right
+* <code>&lt;</code> which is true if the value on the left is smaller than the value on the right
+* <code>&lt;=</code> which is true if the value on the left is equal to or smaller than the value on the right
+* <code>%in%</code> which is true if the value on the left is an element of the vector on the right</p>
+<p>There are a lot of other conditionals we can use, but these are (perhaps) the most commonly used ones.</p>
+<p>When we do filtering, the output of the function is a new data set which has been filtered. To keep this we must, as with all objects, store it in a name. If you are sure about your filtering you can overwrite your previous data set object by keeping the same name, but that means that the filter you have applied is irreversible. Oftentimes, it may be safer to create a new object so that you can go back to your previous data set if you did something wrong. It is also good practice to use the <code>dplyr</code> pipe, <code>%&gt;%</code> when we do these operations. Let’s, for example, say that we want to filter out all observations in the UCDP-GED dataset which do not have any civilian deaths (variable name <code>deaths_civilians</code>), we can then do this by running:</p>
+<pre><code>ucdp_civilians &lt;- ucdp %&gt;% filter(deaths_civilians&gt;0)</code></pre>
+<p>This line of code creates a new data set called <code>ucdp_civilians</code> which consists of all observations in <code>ucdp</code> where the variable <code>deaths_civilians</code> has a value above 0. If we want, we can add further conditionals in the same <code>filter()</code> function. For instance, let us say that we only want to keep events originating in Europe (events in Europe has the value “Europe” for the region variable), like this:</p>
+<pre><code>ucdp_civ_europe &lt;- ucdp %&gt;% filter(deaths_civilians&gt;0, region == &quot;Europe&quot;)</code></pre>
+<p>We add as many conditionals as we want in order to get the data we want.</p>
+</div>
+<div id="selection" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Selection<a href="data-manipulation.html#selection" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The second verb-function we will look at is <code>select()</code>. Select is similar to <code>filter()</code> in that it selects what data we will keep. Unlike <code>filter()</code> however, select works for columns/variables and does not primarily rely on conditionals. As with filter, the first argument of <code>select()</code> is the data set we want to select variables from. As the following arguments, we then specify the names or column positions of the variables we want to keep. We can mix and match with names and positions within the same function call. If there are many variables with the same type of name (for instance, starting with, containing, or ending with) a certain string, we can use so called, select helper functions to get to those.</p>
+<p>The UCDP-GED data set contains 49 variables, so let’s say that we don’t want to work with all of those, but instead we want to work with a smaller subset of variables. We can see all variables in a data set by running the <code>colnames()</code> function on the dataset, i.e. <code>colnames(ucdp_brd)</code>. Let us now say that we want to retain the variables <code>id, year, conflict_name, country, region, deaths_a, deaths_b, deaths_civilians, deaths_unknown, best, high, low</code>. If we look in colnames we can see that these variables have positions <code>1,3,9,34,36,41,42,43,44,45,46,47</code>. We can select these variables with the select function in a number of different wasy. As always, it is good practice to save the new data set with a new name since selection is irreversible if we overwrite the old data set. All of the examples below will yield the same result</p>
+<pre><code>ucdp_red &lt;- ucdp %&gt;% select(id, year, conflict_name, country, region,                                             deaths_a, deaths_b, deaths_civilians,
+                                    deaths_unknown, best, high, low) #using variable names. Note that you do not use quotation marks around names here
+                                    
+ucdp_red &lt;- ucdp %&gt;% select(1,3,9,34,36,41,42,43,44,45,46,47) # using column positions     
+
+ucdp_red &lt;- ucdp %&gt;% select(id,year,conflict_name,34,36,41:47) # using column positions and names. Note that 41:47 means all integers (whole numbers) between 41 and 47.
+
+ucdp_red &lt;- ucdp %&gt;%select(id,year,conflict_name,
+                                    34,36,starts_with(&quot;deaths&quot;),
+                                    45:47) # Using column positions, names, and a select helper (starts_with()). Note that you need to use quotation marks inside the select helper
+                                  </code></pre>
+</div>
+<div id="mutation" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Mutation<a href="data-manipulation.html#mutation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The final verb-function for this chapter us <code>mutate()</code>. Mutate is the primary way that you will create new variables with inside a dataset in R. Unlike <code>filter()</code> or <code>select()</code>, <code>mutate()</code> does not remove any data from your data set. It is therefore less important to save the object as a new object. Rather, in order to keep a clean environment, it may be better to just overwrite your data set.</p>
+<p>As with the other verb-functions, the first argument of <code>mutate()</code> is the data set we want to create variables in. The following arguments are the variables we want to create, and they are created by an equal sign <code>=</code> with the name of the variable on the left hand side, and the value it should take on the right hand side. We can add as many variables as we want in a mutate statement, as long as we separate them by commas.</p>
+<p>For instance, let us say that we want to create a log-transformation of the best, low, and high fatality estimates. A log-transformation can be useful when we have variables with a wide range, as the log transformation squeezes the values together (the log of a value is the value you would need to exponentiate Eulers number, <em>e</em>, with in order to obtain the original value). When analyzing fatality estimates, we often do this on the log-scale since fatalities tend to have wide distribution with extreme values. To create log transformations we use the <code>log()</code> function. However, one problem is that <code>log(0) = -Inf</code>, and since fatality counts include the value zero this is a problem. We can get around this problem by adding 1 to all fatalities numbers, which is sensible since <code>log(1)=0</code> or use the <code>log1p()</code> function which does the same thing.</p>
+<p>To create these new variables we can thus run:</p>
+<pre><code>ucdp &lt;- ucdp %&gt;% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best))</code></pre>
+<p>We could also use multiple variables to create one new variable. For instance, if we want to separate the number of battle related deaths of side a and b from those that are unknown or civilians, we could simply add:</p>
+<pre><code>ucdp &lt;- ucdp %&gt;% mutate(deaths_ab = deaths_a + deaths_b)</code></pre>
+<div id="creating-categorical-or-dummy-variables" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">9.3.1</span> Creating categorical or dummy variables<a href="data-manipulation.html#creating-categorical-or-dummy-variables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A special case of creating new variables is when we want to create new categorical variables which will take different values depending on the values of the old variables. For the creation of these types of variables, we can use the <code>ifelse()</code> or <code>case_when()</code> functions. Both functions takes a conditional (i.e. something which is either true or false) first, but then they differ. <code>ifelse()</code> takes the conditional as the first argument and then takes the value if the conditional is true as the second argument, and the value if it is false as the third. For <code>case_when()</code> the conditional is followed a tilde, <code>~</code>, then the value if it is true. This entire line, which is a formula in R, is considered the first argument. We can then add more conditionals and the value the variable should take as additional arguments. To add a value for when all conditionals are FALSE, we have to add a new argument which is simply <code>TRUE</code> followed by a <code>~</code> and then the value it should take if the first conditional is false. If the <code>TRUE</code> conditional is not specified at the end, all observations which do not fulfill any of the conditionals will receive <code>NA</code> as their value. The upside of <code>case_when</code> is that you can easily string multiple conditionals together by adding them as arguments.</p>
+<p>For instance, we may want to add a dummy variable for whether or not there are civilian deaths in an event. We can do this by:</p>
+<pre><code>ucdp &lt;- ucdp %&gt;% mutate(civilian_casualties = case_when(deaths_civilians&gt;0 ~ 1,
+                                                        TRUE ~ 0))
+                                                        
+# OR using ifelse()
+
+ucdp &lt;- ucdp %&gt;% mutate(civilian_casualties = ifelse(deaths_civilians&gt;0,1,,0))
+</code></pre>
+<p>Try to familiarizee yourselfs primarily with the <code>case_when()</code> function as this is the most useful when manipulating data.</p>
+</div>
+</div>
+<div id="piping-it-all-together" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Piping it all together<a href="data-manipulation.html#piping-it-all-together" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Finally for this chapter, let us look at how we can use pipes to make our workflow and code easier. The best functionality of the pipe is that we can string multiple pipes together in one body of code. This allows us to use multiple verb functions simultaneously without having to save the data objects in between. For instance, let us say that we want to perform all of the operations we have done above. We can do it operation by operation, like this:</p>
+<pre><code>## Mutating
+ucdp &lt;- ucdp %&gt;% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best),
+                                deaths_ab = deaths_a + deaths_b,
+                                civilian_casualties = case_when(deaths_civilians&gt;0 ~ 1,
+                                                        TRUE ~ 0))
+## Selecting
+ucdp_red &lt;- ucdp %&gt;%select(id,year,conflict_name,
+                                    34,36,starts_with(&quot;deaths&quot;),
+                                    45:47)
+                                    
+ucdp_civ_europe &lt;- ucdp_red %&gt;% filter(deaths_civilians&gt;0, region == &quot;Europe&quot;)
+</code></pre>
+<p>However, this is a bit cumbersome, and require us to assign objects multiple times along the way. An easier way of doing this is simply to string the operations of the verb-functions together to do them all at once. This makes your code much cleaner and easier to read, but also makes more intuitive sense when writing the code. You do this using the tidyverse pipes. Note that we still need to assign the output to a object name, and we will use the last of the ones above.</p>
+<pre><code>ucdp_civ_europe &lt;- ucdp %&gt;% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best),
+                                deaths_ab = deaths_a + deaths_b,
+                                civilian_casualties = case_when(deaths_civilians&gt;0 ~ 1,
+                                                        TRUE ~ 0)) %&gt;%                 
+                                select(id,year,conflict_name,
+                                    34,36,starts_with(&quot;deaths&quot;),
+                                    45:47) %&gt;% 
+                                    filter(deaths_civilians&gt;0, region == &quot;Europe&quot;)
+                                    </code></pre>
+<p>As you can see we simply string the piped outputs together to do all of our operations at once, so that we don’t have to intermittently save the data along the way.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="importing-data.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summarazing-data-grouping-aggregation-and-group-manipulation.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/USERNAME/REPO/edit/BRANCH/09-data_manipulation.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["_main.pdf", "_main.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,130 @@
+# Data manipulation
+
+We now know how to import data into R. Let's move on to basic data manipulation. As always for these chapters we will use the conventions of the tidyverse packages when doing so. For this chapter, I will consider data manipulation any action which makes changes to the data set by for instance removing cases or variables from it, or creating new variables in it. It does, however, not entail data aggregation, which is the focus of the next chapter.
+
+The tidyverse approach to data manipulation (as well as aggregation) is through the use of verb-functions. A verb-function is simply a function whose name is a verb which describes what it does, such as `filter()`, `select()`, and `mutate()`, which we will go through one by one.
+
+In the examples below, I will use the UCDP GED data set which we imported in the previous chapter, so if you want to follow along in the code below you can look in the previous chapter how to download and import this data. Important to know that the steps we take in this chapter are applicable across different data sets, just exchange the name of the data set and variables used in the examples below with your own names of data sets and variables.
+
+## Filtering data
+Filtering data is the process of choosing which cases we should keep in our data set, and which cases we should filter out. We do this with the `filter()` function, which takes the data set in which we are supposed to filter out cases as the first argument, and then it takes conditions which we want to use to filter the data as the following arguments. We can include however many conditions as we want in our filtering statement, we simply separate them by commas (as regular arguments).A condition is simply something that for each case can be either TRUE or not (i.e FALSE). For instance, we may only want to keep cases from a particular country or region. Useful operators when writing conditionals are:
+* `==`, which is true if the value on the left is equal to the value on the right. Note that we have to use two equal signs when we use this conditional
+* `!=` which is true if the value on the left is not equal to the value on the right
+* `>`, which is which is true if the value on the left is greater than the value on the right 
+* `>=` which is true if the value on the left is equal to or greater than the value on the right
+* `<` which is true if the value on the left is smaller than the value on the right
+* `<=` which is true if the value on the left is equal to or smaller than the value on the right
+* `%in%` which is true if the value on the left is an element of the vector on the right
+
+There are a lot of other conditionals we can use, but these are (perhaps) the most commonly used ones.
+
+When we do filtering, the output of the function is a new data set which has been filtered. To keep this we must, as with all objects, store it in a name. If you are sure about your filtering you can overwrite your previous data set object by keeping the same name, but that means that the filter you have applied is irreversible. Oftentimes, it may be safer to create a new object so that you can go back to your previous data set if you did something wrong. It is also good practice to use the `dplyr` pipe, `%>%` when we do these operations. Let's, for example, say that we want to filter out all observations in the UCDP-GED dataset which do not have any civilian deaths (variable name `deaths_civilians`), we can then do this by running:
+
+```
+ucdp_civilians <- ucdp %>% filter(deaths_civilians>0)
+```
+This line of code creates a new data set called `ucdp_civilians` which consists of all observations in `ucdp` where the variable `deaths_civilians` has a value above 0. If we want, we can add further conditionals in the same `filter()` function. For instance, let us say that we only want to keep events originating in Europe (events in Europe has the value "Europe" for the region variable), like this:
+
+```
+ucdp_civ_europe <- ucdp %>% filter(deaths_civilians>0, region == "Europe")
+```
+
+We add as many conditionals as we want in order to get the data we want.
+
+## Selection
+The second verb-function we will look at is `select()`. Select is similar to `filter()` in that it selects what data we will keep. Unlike `filter()` however, select works for columns/variables and does not primarily rely on conditionals. As with filter, the first argument of `select()` is the data set we want to select variables from. As the following arguments, we then specify the names or column positions of the variables we want to keep. We can mix and match with names and positions within the same function call. If there are many variables with the same type of name (for instance, starting with, containing, or ending with) a certain string, we can use so called, select helper functions to get to those.
+
+The UCDP-GED data set contains 49 variables, so let's say that we don't want to work with all of those, but instead we want to work with a smaller subset of variables. We can see all variables in a data set by running the `colnames()` function on the dataset, i.e. `colnames(ucdp_brd)`. Let us now say that we want to retain the variables `id, year, conflict_name, country, region, deaths_a, deaths_b, deaths_civilians, deaths_unknown, best, high, low`. If we look in colnames we can see that these variables have positions `1,3,9,34,36,41,42,43,44,45,46,47`. We can select these variables with the select function in a number of different wasy. As always, it is good practice to save the new data set with a new name since selection is irreversible if we overwrite the old data set. All of the examples below will yield the same result
+
+```
+ucdp_red <- ucdp %>% select(id, year, conflict_name, country, region,                                             deaths_a, deaths_b, deaths_civilians,
+                                    deaths_unknown, best, high, low) #using variable names. Note that you do not use quotation marks around names here
+                                    
+ucdp_red <- ucdp %>% select(1,3,9,34,36,41,42,43,44,45,46,47) # using column positions     
+
+ucdp_red <- ucdp %>% select(id,year,conflict_name,34,36,41:47) # using column positions and names. Note that 41:47 means all integers (whole numbers) between 41 and 47.
+
+ucdp_red <- ucdp %>%select(id,year,conflict_name,
+                                    34,36,starts_with("deaths"),
+                                    45:47) # Using column positions, names, and a select helper (starts_with()). Note that you need to use quotation marks inside the select helper
+                                  
+```
+
+## Mutation
+
+The final verb-function for this chapter us `mutate()`. Mutate is the primary way that you will create new variables with inside a dataset in R. Unlike `filter()` or `select()`, `mutate()` does not remove any data from your data set. It is therefore less important to save the object as a new object. Rather, in order to keep a clean environment, it may be better to just overwrite your data set. 
+
+As with the other verb-functions, the first argument of `mutate()` is the data set we want to create variables in. The following arguments are the variables we want to create, and they are created by an equal sign `=` with the name of the variable on the left hand side, and the value it should take on the right hand side. We can add as many variables as we want in a mutate statement, as long as we separate them by commas.
+
+For instance, let us say that we want to create a log-transformation of the best, low, and high fatality estimates. A log-transformation can be useful when we have variables with a wide range, as the log transformation squeezes the values together (the log of a value is the value you would need to exponentiate Eulers number, *e*, with in order to obtain the original value). When analyzing fatality estimates, we often do this on the log-scale since fatalities tend to have wide distribution with extreme values. To create log transformations we use the `log()` function. However, one problem is that `log(0) = -Inf`, and since fatality counts include the value zero this is a problem. We can get around this problem by adding 1 to all fatalities numbers, which is sensible since `log(1)=0` or use the `log1p()` function which does the same thing.
+
+To create these new variables we can thus run:
+
+```
+ucdp <- ucdp %>% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best))
+```
+
+We could also use multiple variables to create one new variable. For instance, if we want to separate the number of battle related deaths of side a and b from those that are unknown or civilians, we could simply add:
+
+```
+ucdp <- ucdp %>% mutate(deaths_ab = deaths_a + deaths_b)
+```
+
+### Creating categorical or dummy variables
+
+A special case of creating new variables is when we want to create new categorical variables which will take different values depending on the values of the old variables. For the creation of these types of variables, we can use the `ifelse()` or `case_when()` functions. Both functions takes a conditional (i.e. something which is either true or false) first, but then they differ. `ifelse()` takes the conditional as the first argument and then takes the value if the conditional is true as the second argument, and the value if it is false as the third. For `case_when()` the conditional is followed a tilde, `~`,  then the value if it is true. This entire line, which is a formula in R, is considered the first argument. We can then add more conditionals and the value the variable should take as additional arguments. To add a value for when all conditionals are FALSE, we have to add a new argument which is simply `TRUE` followed by a `~` and then the value it should take if the first conditional is false. If the `TRUE` conditional is not specified at the end, all observations which do not fulfill any of the conditionals will receive `NA` as their value. The upside of `case_when` is that you can easily string multiple conditionals together by adding them as arguments.
+
+For instance, we may want to add a dummy variable for whether or not there are civilian deaths in an event. We can do this by:
+
+```
+ucdp <- ucdp %>% mutate(civilian_casualties = case_when(deaths_civilians>0 ~ 1,
+                                                        TRUE ~ 0))
+                                                        
+# OR using ifelse()
+
+ucdp <- ucdp %>% mutate(civilian_casualties = ifelse(deaths_civilians>0,1,,0))
+
+```
+
+Try to familiarizee yourselfs primarily with the `case_when()` function as this is the most useful when manipulating data.
+
+## Piping it all together
+Finally for this chapter, let us look at how we can use pipes to make our workflow and code easier. The best functionality of the pipe is that we can string multiple pipes together in one body of code. This allows us to use multiple verb functions simultaneously without having to save the data objects in between. For instance, let us say that we want to perform all of the operations we have done above. We can do it operation by operation, like this:
+
+```
+## Mutating
+ucdp <- ucdp %>% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best),
+                                deaths_ab = deaths_a + deaths_b,
+                                civilian_casualties = case_when(deaths_civilians>0 ~ 1,
+                                                        TRUE ~ 0))
+## Selecting
+ucdp_red <- ucdp %>%select(id,year,conflict_name,
+                                    34,36,starts_with("deaths"),
+                                    45:47)
+                                    
+ucdp_civ_europe <- ucdp_red %>% filter(deaths_civilians>0, region == "Europe")
+
+```
+
+However, this is a bit cumbersome, and require us to assign objects multiple times along the way. An easier way of doing this is simply to string the operations of the verb-functions together to do them all at once. This makes your code much cleaner and easier to read, but also makes more intuitive sense when writing the code. You do this using the tidyverse pipes. Note that we still need to assign the output to a object name, and we will use the last of the ones above.
+
+```
+ucdp_civ_europe <- ucdp %>% mutate(log_low = log1p(low),
+                                log_best = log1p(best),
+                                log_high = lop1(best),
+                                deaths_ab = deaths_a + deaths_b,
+                                civilian_casualties = case_when(deaths_civilians>0 ~ 1,
+                                                        TRUE ~ 0)) %>%                 
+                                select(id,year,conflict_name,
+                                    34,36,starts_with("deaths"),
+                                    45:47) %>% 
+                                    filter(deaths_civilians>0, region == "Europe")
+                                    
+```
+
+As you can see we simply string the piped outputs together to do all of our operations at once, so that we don't have to intermittently save the data along the way.
+

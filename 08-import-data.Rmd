@@ -1,0 +1,46 @@
+# Importing data
+
+Now that we know about the tidyverse and we know how data sets are structured, we can start loading data into R. Usually when you are working with data analysis, you will not yourself manually enter the data you wish to analyze as we did in chapter 5, and if you do you will probably not enter the data manually in R but use some other  software for that. Most often when we use data in R we will import data sets that have already been created by someone else and which we want to use. When we import data in R, there are a number of different things to keep in mind. Most important of these are the file format of the data we want to import. The file format is visible as the file ending of your file, and the file format decides which function we should use to import our data. Common (but not exhaustive) file formats for data which you can import in R are
+* .csv files, which are comma separated values. This is a generic file format which can be imported into any statistical software. Often times data sets are saved in this file format to maximize the ease of use across different software
+* .txt files, which are text values with a fixed delimiter (such as commas, periods, spaces, etc) between values. .csv files are a special case of these text files which use commas as the separator.
+* .RDS files, which are R data object files. These data files are objects directly exported from R and are smaller in size and the easiest to import of all data types in R.
+* .Rdata files, which are an old data format for R data objects.
+* .dta files, which are stata data files. Many researchers still use stata and R can easily import data sets with this format
+* .xlsx files, which are excel files. Excel files are a bit annoying to work with since they can contain several pages and may contain different structures on a single page. As long as the excel file follows the format of one observation per row and one variable per column they can be imported into R without many problems.
+
+There are other formats as well but which are less common within peace and conflict research, such as data files from SAS or SPSS, or file formats for larger data sets such as `.parquet` files.
+
+Regardless of the file format, the procedure to import data into R follows the same pattern. There are two main ways, either you can click in the *import dataset* button in the environment pane. This works for text, (incl .csv), excel, stata, spss, and sas data (but not RDS or Rdata) and opens up a drop-down menu where you can select what type of data you want to import. When importing data from text (which also includes .csv files) you should select the `readr` option. Clicking on any option here will open up a dialogue window where you can select your file you want to import, and at the bottom of the window you have options for the data set such as *first row as names* etc. For text files you can also select your delimiter and see how the resulting data set changes as a result. You then click the import button and R will import the data for you.
+
+Alternatively, we can import the data using the appropriate functions. For csv data, we will use the `read_csv()` funtion from the `readr` package in tidyverse, for STATA and Excel data we use `read_dta()` and `read_xlsx()` from the `haven` package, and for RDS and Rdata files we use `readRDS()` and `load()` respectively. The first argument of all of these functions are the path to the data file. If you have your data file directly in the working directory, all you need to do is simply specifying the name of the data file (inside quotation marks) and R will import the data. Important to remember is that imported data sets are objects as well, so we do need to store these as objects and give them a certain name.
+
+For instance, at https://ucdp.uu.se/downloads/index.html#ged_global you can download the UCDP georeferenced events data (GED) set at the conflict level in a number of different formats. If download this data and put it in the working directory (i.e. the folder you selected for your project) we can load this data into R. In the example below, I chose to re-name the data file to `ucdp.[file_ending]` (the original data file has another name). Note also that the UDCP/PRIO Armed Conflict data is not available as an `.RDS` file, but I will include this as an example anyway. We load the data into R by running:
+
+```
+library(tidyverse)
+library(haven) # haven needed to import data from stata format
+
+ucdp <- read_csv("ucdp.csv") # If we have a .csv file
+
+ucdp <- read_dta("ucdp.dta") # If we have a .dta (STATA) file
+
+ucdp <- read_xlsx("ucdp.xlsx") # If we have a .xlsx (Excel) file
+
+ucdp <- readRDS("ucdp.RDS") # If we have a .RDS file (this is not available for download at the UCDP website)
+
+load("ucdp.Rdata") # Note that we do not need to assign the value when using load()
+```
+
+All of these functions will read data into R if we have the file in your working directory. The principle is the same for all data import functions *except* for the `load()` function for `.Rdata` files. With the `load()` function you do not need to assign the imported data to a named object. Instead, the `load()` function will create an object with the same name as it was saved as, and thus if you want a different name for the object you will have to make a new copy of it afterwards. The `Rdata` format is now usually superseded by the more modern format `.RDS`, which uses the same import conventions as the other import functions.
+
+Now that we know how to import data, we can move onto manipulating the data we have imported.
+
+
+
+
+
+
+
+
+
+
